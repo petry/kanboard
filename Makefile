@@ -1,6 +1,7 @@
 
 deps:
 	@pip install -r requirements.txt
+	@pip install -r requirements_test.txt
 
 migrate:
 	@python manage.py syncdb --settings kamboard.settings_local
