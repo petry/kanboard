@@ -1,3 +1,8 @@
 from django.db import models
 
-# Create your models here.
+class Board(models.Model):
+    name = models.CharField(max_length=255)
+
+class Story(models.Model):
+    name = models.CharField(max_length=255)
+    board = models.ForeignKey(Board)
