@@ -24,3 +24,7 @@ coverage: clean
 
 help:
 	@grep '^[^#[:space:]].*:' Makefile | awk -F ":" '{print $$1}'
+
+deploy:
+	@git push heroku master
+	@heroku run python manage.py migrate
