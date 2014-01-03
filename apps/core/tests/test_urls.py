@@ -4,11 +4,9 @@ from model_mommy import mommy
 from apps.core.models import Board
 
 
-class BoardDetailViewTest(TestCase):
-    urls = 'apps.core.urls'
-
+class UrlsTest(TestCase):
     def setUp(self):
-        super(BoardDetailViewTest, self).setUp()
+        super(UrlsTest, self).setUp()
         self.board = mommy.make(Board)
 
     def test_name_url(self):
