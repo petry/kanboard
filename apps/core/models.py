@@ -7,6 +7,17 @@ class Board(models.Model):
     def __unicode__(self):
         return self.name
 
+    def steps(self):
+        steps = []
+        current_step = self.step_set.get(initial=True)
+
+        while True:
+            steps.append(current_step)
+            if not current_step.next:
+                break
+            current_step = current_step.next
+        return steps
+
 
 class Story(models.Model):
     name = models.CharField(max_length=255)
