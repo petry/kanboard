@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.db import models
+from model_mommy import mommy
 
 from apps.core.models import Story, Board, Step, Transition
 
@@ -17,6 +18,9 @@ class BoardTestCase(BaseModelTest):
         member_field = Board._meta.get_field_by_name('name')[0]
         self.assertIsInstance(member_field, models.CharField)
 
+    def test_board_instance_should_output_name(self):
+        instance = mommy.make(Board)
+        self.assertEqual(unicode(instance), instance.name)
 
 class StoryTestCase(BaseModelTest):
     def test_should_have_a_name(self):
@@ -33,6 +37,10 @@ class StoryTestCase(BaseModelTest):
         member_field = Story._meta.get_field_by_name('board')[0]
         self.assertIsInstance(member_field, models.ForeignKey)
         self.assertEqual(Board, member_field.related.parent_model)
+
+    def test_story_instance_should_output_name(self):
+        instance = mommy.make(Story)
+        self.assertEqual(unicode(instance), instance.name)
 
 
 class StepTestCase(BaseModelTest):
@@ -58,6 +66,10 @@ class StepTestCase(BaseModelTest):
         member_field = Step._meta.get_field_by_name('next')[0]
         self.assertIsInstance(member_field, models.ForeignKey)
         self.assertEqual(Step, member_field.related.parent_model)
+
+    def test_board_instance_should_output_name(self):
+        instance = mommy.make(Step)
+        self.assertEqual(unicode(instance), instance.name)
 
 class TransitionTestCase(BaseModelTest):
     def test_should_have_a_date(self):
