@@ -22,6 +22,7 @@ class BoardTestCase(BaseModelTest):
         instance = mommy.make(Board)
         self.assertEqual(unicode(instance), instance.name)
 
+
 class StoryTestCase(BaseModelTest):
     def test_should_have_a_name(self):
         self.assert_field_in('name', Story)
@@ -50,6 +51,13 @@ class StepTestCase(BaseModelTest):
     def test_name_should_be_a_char_field(self):
         member_field = Step._meta.get_field_by_name('name')[0]
         self.assertIsInstance(member_field, models.CharField)
+
+    def test_should_have_a_initial_step(self):
+        self.assert_field_in('initial', Step)
+
+    def test_initial_should_be_a_char_field(self):
+        member_field = Step._meta.get_field_by_name('initial')[0]
+        self.assertIsInstance(member_field, models.BooleanField)
 
     def test_should_have_a_board(self):
         self.assert_field_in('board', Step)

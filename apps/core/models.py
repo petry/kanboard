@@ -18,6 +18,7 @@ class Story(models.Model):
 
 class Step(models.Model):
     board = models.ForeignKey(Board)
+    initial = models.BooleanField(default=False)
     name = models.CharField(max_length=255)
     next = models.ForeignKey('self', null=True, blank=True)
 
