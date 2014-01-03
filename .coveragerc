@@ -1,0 +1,7 @@
+[run]
+omit =
+    apps/*/migrations*
+    kamboard/settings*
+    kamboard/wsgi*
+    manage*
+    setup*

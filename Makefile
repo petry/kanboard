@@ -17,10 +17,10 @@ run: clean
 	@python manage.py runserver 0.0.0.0:8000 --settings kamboard.settings_local
 
 test: clean
-	@python manage.py test --settings kamboard.settings_test --verbosity=2
+	@py.test
 
 coverage: clean
-	coverage run --source='.' manage.py test --settings kamboard.settings_test && coverage html && coverage report
+	@py.test --cov . --cov-report html
 
 help:
 	@grep '^[^#[:space:]].*:' Makefile | awk -F ":" '{print $$1}'
