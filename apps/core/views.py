@@ -1,3 +1,6 @@
-from django.shortcuts import render
+from django.views.generic.detail import DetailView
+from apps.core.models import Board
 
-# Create your views here.
+
+class BoardDetailView(DetailView):
+    model = Board

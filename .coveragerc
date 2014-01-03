@@ -1,6 +1,7 @@
 [run]
 omit =
     apps/*/migrations*
+    apps/*/test_*
     kamboard/settings*
     kamboard/wsgi*
     manage*
