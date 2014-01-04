@@ -21,8 +21,6 @@ class Board(models.Model):
 
 class Story(models.Model):
     name = models.CharField(max_length=255)
-    board = models.ForeignKey(Board)
-    status = models.ForeignKey('Step')
 
     def __unicode__(self):
         return self.name
@@ -36,6 +34,12 @@ class Step(models.Model):
 
     def __unicode__(self):
         return self.name
+
+
+class BoardPosition(models.Model):
+    story = models.OneToOneField(Story)
+    board = models.ForeignKey(Board)
+    status = models.ForeignKey('Step')
 
 
 class Transition(models.Model):

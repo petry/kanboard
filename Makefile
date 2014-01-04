@@ -4,7 +4,6 @@ deps:
 	@pip install -r requirements_test.txt
 
 migrate:
-	@python manage.py syncdb --settings kamboard.settings_local
 	@python manage.py migrate --settings kamboard.settings_local
 	@python manage.py loaddata kamboard/fixtures/initial_data.json  --settings=kamboard.settings_local
 
