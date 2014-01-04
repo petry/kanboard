@@ -1,9 +1,29 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{ object.name }}</title>
-</head>
-<body>
-    <h1>{{ object.name }}</h1>
-</body>
-</html>
+{% extends "grid_base.html" %}
+{% load static %}
+{% block css %}
+    <link href="{% static "css/dashboard.css" %}" rel="stylesheet">
+{% endblock %}
+
+{% block container %}
+    <div class="container">
+        <h1>{{ object.name }}</h1>
+
+        <div class="board">
+
+            {% for step in object.steps %}
+                <div class="col-md-4">
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">{{ step.name }}</h3>
+                        </div>
+                        <div class="panel-body">
+
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+{% endblock %}

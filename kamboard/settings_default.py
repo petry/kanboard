@@ -1,12 +1,3 @@
-"""
-Django settings for kamboard project.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/1.6/topics/settings/
-
-For the full list of settings and their values, see
-https://docs.djangoproject.com/en/1.6/ref/settings/
-"""
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
@@ -35,7 +26,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'south',
-    'apps.core',
+    'apps.core'
+
 )
 
 MIDDLEWARE_CLASSES = (
@@ -50,8 +42,6 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'kamboard.urls'
 
 WSGI_APPLICATION = 'kamboard.wsgi.application'
-
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
@@ -77,5 +67,9 @@ STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'kamboard/static'),
+)
+
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR, 'kamboard/templates'),
 )

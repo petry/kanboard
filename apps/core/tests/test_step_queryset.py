@@ -15,4 +15,3 @@ class StepQuerysetTest(TestCase):
 
         self.assertEqual(self.board.steps(),
                          [self.step1, self.step2, self.step3])
-        
