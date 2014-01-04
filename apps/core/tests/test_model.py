@@ -102,3 +102,7 @@ class TransitionTestCase(BaseModelTest):
         member_field = Transition._meta.get_field_by_name('step')[0]
         self.assertIsInstance(member_field, models.ForeignKey)
         self.assertEqual(Step, member_field.related.parent_model)
+
+    def test_board_instance_should_output_name(self):
+        instance = mommy.make(Transition)
+        self.assertEqual(unicode(instance), u"#{0} on {1}".format(instance.story.id, instance.step.name))

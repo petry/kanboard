@@ -41,3 +41,6 @@ class Transition(models.Model):
     story = models.ForeignKey(Story)
     step = models.ForeignKey(Step)
     date = models.DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+        return "#{0} on {1}".format(self.story.id, self.step.name)
