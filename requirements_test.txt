@@ -2,3 +2,4 @@ pytest-django==2.4
 pytest-cov==1.6
 coveralls==0.4
 model-mommy==1.2
+lxml==3.2.5
