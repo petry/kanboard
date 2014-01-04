@@ -39,6 +39,14 @@ class StoryTestCase(BaseModelTest):
         self.assertIsInstance(member_field, models.ForeignKey)
         self.assertEqual(Board, member_field.related.parent_model)
 
+    def test_should_have_a_status(self):
+        self.assert_field_in('status', Story)
+
+    def test_board_should_be_a_foreign_key(self):
+        member_field = Story._meta.get_field_by_name('status')[0]
+        self.assertIsInstance(member_field, models.ForeignKey)
+        self.assertEqual(Step, member_field.related.parent_model)
+
     def test_story_instance_should_output_name(self):
         instance = mommy.make(Story)
         self.assertEqual(unicode(instance), instance.name)

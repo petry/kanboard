@@ -22,6 +22,7 @@ class Board(models.Model):
 class Story(models.Model):
     name = models.CharField(max_length=255)
     board = models.ForeignKey(Board)
+    status = models.ForeignKey('Step')
 
     def __unicode__(self):
         return self.name

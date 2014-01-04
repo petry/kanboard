@@ -18,6 +18,11 @@
                             <h3 class="panel-title">{{ step.name }}</h3>
                         </div>
                         <div class="panel-body">
+                            {% for story in step.story_set.all %}
+                                <div class="story">
+                                    <span class="label label-default">#{{ story.id }} {{ story.name }}</span>
+                                </div>
+                            {% endfor %}
 
                         </div>
                     </div>
