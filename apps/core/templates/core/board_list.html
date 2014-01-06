@@ -1,0 +1,31 @@
+{% extends "grid_base.html" %}
+{% load static %}
+{% block css %}
+    <link href="{% static "css/dashboard.css" %}" rel="stylesheet">
+{% endblock %}
+
+{% block container %}
+    <div class="container">
+        <h1>Kamboard</h1>
+
+
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Board</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for board in object_list %}
+                    <tr>
+                        <td>{{ board.name }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+{% endblock %}
