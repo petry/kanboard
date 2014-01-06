@@ -22,7 +22,9 @@ class ModelTestCase(TestCase):
 
 class BoardPositionTestCase(TestCase):
 
-    def test_should_advance_step(self):
+
+    def setUp(self):
+        super(BoardPositionTestCase, self).setUp()
         self.board = mommy.make(Board)
         self.step2 = Step.objects.create(board=self.board, name='step 2')
         self.step1 = Step.objects.create(board=self.board, name='step 1',
@@ -34,6 +36,15 @@ class BoardPositionTestCase(TestCase):
             status=self.step1
         )
 
+    def test_should_advance_step(self):
         self.assertEqual(self.position.status, self.step1)
+        last_position = self.position.go()
+        self.assertEqual(self.position.status, self.step2)
+        self.assertEqual(last_position, self.step2)
+
+    def test_should_remain_in_the_last_position(self):
         self.position.go()
         self.assertEqual(self.position.status, self.step2)
+        last_position = self.position.go()
+        self.assertEqual(self.position.status, self.step2)
+        self.assertEqual(last_position, self.step2)
