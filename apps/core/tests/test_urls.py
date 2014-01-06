@@ -9,7 +9,6 @@ class UrlsTest(TestCase):
 
     def setUp(self):
         super(UrlsTest, self).setUp()
-        self.board = mommy.make(Board)
 
     def assertUrlExist(self, name, kwargs={}):
         try:
@@ -17,8 +16,11 @@ class UrlsTest(TestCase):
         except NoReverseMatch:
             self.fail("Reversal of url named '{0}' failed with NoReverseMatch".format(name))
 
+    def test_board_listl_url(self):
+        self.assertUrlExist('board-list')
+
     def test_board_detail_url(self):
-        self.assertUrlExist('board-detail', {'pk': self.board.id})
+        self.assertUrlExist('board-detail', {'pk': 1})
 
     def test_story_detail_url(self):
-        self.assertUrlExist('story-detail', {'pk': self.board.id})
+        self.assertUrlExist('story-detail', {'pk': 1})
