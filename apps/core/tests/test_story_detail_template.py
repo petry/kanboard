@@ -19,3 +19,6 @@ class StoryDetailViewTest(TestCase):
         title = self.dom.cssselect('.modal-dialog .modal-content h4.modal-title')[0]
         self.assertEqual(title.text, "Story #{0} - {1}".format(self.story.id, self.story.name) )
 
+    def test_should_have_story_advance_link(self):
+        title = self.dom.cssselect('.modal-dialog .modal-content .modal-footer a')[0]
+        self.assertEqual(title.text, "Advance")
