@@ -8,14 +8,17 @@ from apps.core.models import Board, Story
 class BoardListView(ListView):
     model = Board
 
+
 class BoardDetailView(DetailView):
     model = Board
+
 
 class StoryDetailView(DetailView):
     model = Story
 
-class StoryAdvanceView(RedirectView):
 
+class StoryAdvanceView(RedirectView):
     def get_redirect_url(self, *args, **kwargs):
         story = Story.objects.get(id=1)
+        story.boardposition.go()
         return reverse('board-detail', kwargs={'pk': story.boardposition.board.id})
