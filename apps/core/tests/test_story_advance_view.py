@@ -28,4 +28,3 @@ class BoardListViewTest(TestCase):
         self.assertEqual(self.response.url, reverse('board-detail', kwargs={'pk': self.board.id}))
         self.assertEqual(dict(self.response.items())['Location'], reverse('board-detail', kwargs={'pk': self.board.id}))
 
-        
