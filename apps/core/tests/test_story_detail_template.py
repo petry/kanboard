@@ -22,5 +22,5 @@ class StoryDetailViewTest(TestCase):
 
     def test_should_have_story_advance_link(self):
         link = self.dom.cssselect('.modal-dialog .modal-content .modal-footer a.btn.btn-primary')[0]
-        self.assertEqual(link.attrib['href'], reverse("story-advance", kwargs={"pk":self.story.id}))
+        self.assertEqual(link.attrib['href'], reverse("story-advance", kwargs={"pk": self.story.id}))
         self.assertEqual(link.text, "Advance")
