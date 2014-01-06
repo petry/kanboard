@@ -41,6 +41,9 @@ class BoardPosition(models.Model):
     board = models.ForeignKey(Board)
     status = models.ForeignKey('Step')
 
+    def __unicode__(self):
+        return "Story #{0} on board {1} in {2}".format(self.story.id, self.board.id, self.status.name)
+
 
 class Transition(models.Model):
     story = models.ForeignKey(Story)
@@ -48,4 +51,4 @@ class Transition(models.Model):
     date = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
-        return "#{0} on {1}".format(self.story.id, self.step.name)
+        return "#{0} in {1} on {2}".format(self.story.id, self.step.name, self.date)
