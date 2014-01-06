@@ -1,10 +1,10 @@
 from django.core.urlresolvers import reverse
 from django.test import TestCase, RequestFactory
-from mock import patch
 from model_mommy import mommy
 from lxml import html
 from apps.core.models import Story, Step, BoardPosition
 from apps.core.views import StoryDetailView
+
 
 class StoryDetailViewTest(TestCase):
     urls = 'apps.core.urls'
@@ -12,18 +12,15 @@ class StoryDetailViewTest(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
         self.story = mommy.make(Story)
-
         self.step2 = mommy.make(Step)
         self.step1 = mommy.make(Step, next=self.step2)
-
-        self.request = self.factory.get('/storys/1/')
-
+        self.request = self.factory.get('/story/1/')
 
     def test_should_have_story_name_on_title(self):
         response = StoryDetailView.as_view()(self.request, pk=self.story.pk)
         dom = html.fromstring(response.rendered_content)
         title = dom.cssselect('.modal-dialog .modal-content h4.modal-title')[0]
-        self.assertEqual(title.text, "Story #{0} - {1}".format(self.story.id, self.story.name) )
+        self.assertEqual(title.text, "Story #{0} - {1}".format(self.story.id, self.story.name))
 
     def test_should_have_story_advance_link(self):
         mommy.make(BoardPosition, story=self.story, status=self.step1)
@@ -46,4 +43,3 @@ class StoryDetailViewTest(TestCase):
         dom = html.fromstring(response.rendered_content)
         link = dom.cssselect('.modal-dialog .modal-content .modal-footer')[0]
         self.assertEqual(link.text.lstrip(), "")
-
