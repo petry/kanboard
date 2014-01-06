@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.test import TestCase, RequestFactory
 from model_mommy import mommy
 from lxml import html
@@ -20,5 +21,6 @@ class StoryDetailViewTest(TestCase):
         self.assertEqual(title.text, "Story #{0} - {1}".format(self.story.id, self.story.name) )
 
     def test_should_have_story_advance_link(self):
-        title = self.dom.cssselect('.modal-dialog .modal-content .modal-footer a')[0]
-        self.assertEqual(title.text, "Advance")
+        link = self.dom.cssselect('.modal-dialog .modal-content .modal-footer a.btn.btn-primary')[0]
+        self.assertEqual(link.attrib['href'], reverse("story-advance", kwargs={"pk":self.story.id}))
+        self.assertEqual(link.text, "Advance")
