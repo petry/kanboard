@@ -2,21 +2,7 @@ from django.test import TestCase
 from django.db import models
 from model_mommy import mommy
 
-from apps.core.models import Story, Board, Step, Transition, BoardPosition
-
-
-class BoardTestCase(TestCase):
-    def test_should_have_all_fields_name(self):
-        self.assertEqual(['boardposition', u'id', 'name', 'step'],
-                         Board._meta.get_all_field_names())
-
-    def test_name_should_be_a_char_field(self):
-        member_field = Board._meta.get_field_by_name('name')[0]
-        self.assertIsInstance(member_field, models.CharField)
-
-    def test_board_instance_should_output_name(self):
-        instance = mommy.make(Board)
-        self.assertEqual(unicode(instance), instance.name)
+from apps.core.models import Story, Board, Step, Transition
 
 
 class StoryTestCase(TestCase):
@@ -31,23 +17,6 @@ class StoryTestCase(TestCase):
     def test_story_instance_should_output_name(self):
         instance = mommy.make(Story)
         self.assertEqual(unicode(instance), instance.name)
-
-
-class BoardPositionTestCase(TestCase):
-    def test_should_have_all_fields_name(self):
-        self.assertEqual(['board', u'id', 'status', 'story'],
-                         BoardPosition._meta.get_all_field_names())
-
-    def test_name_should_be_a_char_field(self):
-        member_field = BoardPosition._meta.get_field_by_name('board')[0]
-        self.assertIsInstance(member_field, models.ForeignKey)
-
-    def test_story_instance_should_output_name(self):
-        instance = mommy.make(BoardPosition)
-        self.assertEqual(unicode(instance),
-                         "Story #{0} on board {1} in {2}".format(
-                             instance.story.id, instance.board.id, instance.status.name))
-
 
 
 class StepTestCase(TestCase):
