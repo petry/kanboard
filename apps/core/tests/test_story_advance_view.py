@@ -33,7 +33,7 @@ class BoardListViewTest(TestCase):
         response = StoryAdvanceView.as_view()(self.request, pk=self.story.pk)
         self.assertEqual(response.status_code, 302)
 
-    @patch('apps.core.tests.test_story_advance_view.BoardPosition.go')
+    @patch('apps.core.models.BoardPosition.go')
     def test_should_advance_position(self, mock):
         response = StoryAdvanceView.as_view()(self.request, pk=self.story.pk)
         self.assertTrue(mock.called)

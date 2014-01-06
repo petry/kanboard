@@ -9,7 +9,9 @@
         <p>One fine body&hellip;</p>
       </div>
       <div class="modal-footer">
-          <a class="btn btn-primary" href="{% url 'story-advance' object.id %}">Advance</a>
+          {% if object.boardposition.status.next %}
+              <a class="btn btn-primary" href="{% url 'story-advance' object.id %}">To {{ object.boardposition.status.next }}</a>
+          {% endif %}
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
