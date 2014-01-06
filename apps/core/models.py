@@ -44,6 +44,10 @@ class BoardPosition(models.Model):
     def __unicode__(self):
         return "Story #{0} on board {1} in {2}".format(self.story.id, self.board.id, self.status.name)
 
+    def go(self):
+        self.status = self.status.next
+        self.save()
+
 
 class Transition(models.Model):
     story = models.ForeignKey(Story)
