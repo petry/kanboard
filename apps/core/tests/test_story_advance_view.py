@@ -25,11 +25,15 @@ class BoardListViewTest(TestCase):
         self.request = self.factory.get('/boards/1/advance/')
 
     def test_should_redirect_to_board(self):
-        self.response = StoryAdvanceView.as_view()(self.request, pk=self.story.pk)
-        self.assertEqual(self.response.url, reverse('board-detail', kwargs={'pk': self.board.id}))
-        self.assertEqual(dict(self.response.items())['Location'], reverse('board-detail', kwargs={'pk': self.board.id}))
+        response = StoryAdvanceView.as_view()(self.request, pk=self.story.pk)
+        self.assertEqual(response.url, reverse('board-detail', kwargs={'pk': self.board.id}))
+        self.assertEqual(dict(response.items())['Location'], reverse('board-detail', kwargs={'pk': self.board.id}))
+
+    def test_redirect_shoul_not_be_permanent(self):
+        response = StoryAdvanceView.as_view()(self.request, pk=self.story.pk)
+        self.assertEqual(response.status_code, 302)
 
     @patch('apps.core.tests.test_story_advance_view.BoardPosition.go')
     def test_should_advance_position(self, mock):
-        self.response = StoryAdvanceView.as_view()(self.request, pk=self.story.pk)
+        response = StoryAdvanceView.as_view()(self.request, pk=self.story.pk)
         self.assertTrue(mock.called)
