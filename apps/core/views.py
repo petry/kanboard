@@ -13,6 +13,11 @@ class BoardListView(ListView):
 class BoardDetailView(DetailView):
     model = Board
 
+    def get_context_data(self, **kwargs):
+        context = super(BoardDetailView, self).get_context_data(**kwargs)
+        context['icebox'] = Story.objects.filter(boardposition=None)
+        return context
+
 
 class StoryDetailView(DetailView):
     model = Story

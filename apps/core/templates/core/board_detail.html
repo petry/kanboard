@@ -8,8 +8,7 @@
     <div class="container">
         <h1>{{ object.name }}</h1>
 
-        <div class="board">
-
+        <div class="steps">
             {% for step in object.steps %}
                 <div class="col-md-4">
 
@@ -19,15 +18,7 @@
                         </div>
                         <div class="panel-body">
                             {% for position in step.boardposition_set.all %}
-                                <div class="story">
-                                    <a href="#" data-href="{% url "story-detail" position.story.id %}" data-toggle="modal" data-target="#myModal">
-
-                                    <span class="label label-default">
-                                        #{{ position.story.id }} {{ position.story.name }}
-                                    </span>
-                                    </a>
-
-                                </div>
+                                {% include "core/includes/story_list_item.html" with object=position.story only %}
                             {% endfor %}
 
                         </div>
@@ -35,7 +26,23 @@
                 </div>
             {% endfor %}
         </div>
+        <div class="icebox">
+            <div class="col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">ICEBOX</h3>
+                    </div>
+                    <div class="panel-body">
+                        {% for story in icebox %}
+                            {% include "core/includes/story_list_item.html" with object=story only %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
     </div>
+
 
 {% endblock %}
