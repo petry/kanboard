@@ -1,6 +1,6 @@
 from django.test import TestCase, RequestFactory
 from model_mommy import mommy
-from apps.core.forms import OnBoardForm
+from apps.core.forms import BoardPositionForm
 from apps.core.models import Story
 from apps.core.views import StoryDetailView
 
@@ -18,4 +18,4 @@ class StoryDetailViewTest(TestCase):
 
     def test_shoul_have_board_form_on_context(self):
         self.assertTrue(self.response.context_data.has_key('board_form'))
-        self.assertIsInstance(self.response.context_data['board_form'], OnBoardForm)
+        self.assertIsInstance(self.response.context_data['board_form'], BoardPositionForm)

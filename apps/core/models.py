@@ -39,7 +39,7 @@ class Step(models.Model):
 class BoardPosition(models.Model):
     story = models.OneToOneField(Story)
     board = models.ForeignKey(Board)
-    status = models.ForeignKey('Step')
+    status = models.ForeignKey('Step', auto_created=True)
 
     def __unicode__(self):
         return "Story #{0} on board {1} in {2}".format(self.story.id, self.board.id, self.status.name)

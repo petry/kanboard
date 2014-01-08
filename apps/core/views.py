@@ -2,7 +2,7 @@ from django.core.urlresolvers import reverse
 from django.views.generic.base import RedirectView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
-from apps.core.forms import OnBoardForm
+from apps.core.forms import BoardPositionForm
 from apps.core.models import Board, Story
 
 
@@ -19,7 +19,7 @@ class StoryDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(StoryDetailView, self).get_context_data(**kwargs)
-        context['board_form'] = OnBoardForm()
+        context['board_form'] = BoardPositionForm()
         return context
 
 
