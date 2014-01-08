@@ -4,7 +4,7 @@ from mock import patch
 from model_mommy import mommy
 from apps.core.models import Board, Step, Story, BoardPosition
 from apps.core.views import StoryAdvanceView
-from apps.core import models
+
 
 class BoardListViewTest(TestCase):
 

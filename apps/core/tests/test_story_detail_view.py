@@ -1,11 +1,11 @@
 from django.test import TestCase, RequestFactory
 from model_mommy import mommy
+from apps.core.forms import OnBoardForm
 from apps.core.models import Story
 from apps.core.views import StoryDetailView
 
 
 class StoryDetailViewTest(TestCase):
-    urls = 'apps.core.urls'
 
     def setUp(self):
         self.factory = RequestFactory()
@@ -15,3 +15,7 @@ class StoryDetailViewTest(TestCase):
 
     def test_should_use_the_correctly_template(self):
         self.assertIn('core/story_detail.html', self.response.template_name)
+
+    def test_shoul_have_board_form_on_context(self):
+        self.assertTrue(self.response.context_data.has_key('board_form'))
+        self.assertIsInstance(self.response.context_data['board_form'], OnBoardForm)
