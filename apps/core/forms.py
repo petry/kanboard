@@ -3,14 +3,14 @@ from apps.core.models import Board, BoardPosition, Story
 
 
 class BoardPositionForm(forms.ModelForm):
+    board = forms.ModelChoiceField(
+        queryset=Board.objects.all(),
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
 
     class Meta:
         model = BoardPosition
         exclude = ['status', 'story']
-
-    def save(self, commit=True):
-        return super(BoardPositionForm, self).save(commit)
-
 
     def on_board(self):
         if not self.is_valid():

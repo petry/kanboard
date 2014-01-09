@@ -40,6 +40,16 @@ class StoryAdvanceView(RedirectView):
 class StoryOnBoardView(RedirectView):
     permanent = False
 
+    def post(self, request, *args, **kwargs):
+        position_form = BoardPositionForm(
+            data={
+                'story': kwargs['pk'],
+                'board': request.POST.get('board')
+            }
+        )
+        position_form.on_board()
+        return super(StoryOnBoardView, self).post(request, *args, **kwargs)
+
     def get_redirect_url(self, *args, **kwargs):
-        board_id = self.request.POST.get('board_id')
-        return reverse('board-detail', kwargs={'pk': board_id})
+        story = Story.objects.get(id=kwargs['pk'])
+        return reverse('board-detail', kwargs={'pk': story.boardposition.board.id})

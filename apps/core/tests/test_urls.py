@@ -25,5 +25,8 @@ class UrlsTest(TestCase):
     def test_story_detail_url(self):
         self.assertUrlExist('story-detail', {'pk': 1})
 
-    def test_story_detail_url(self):
+    def test_story_advance_url(self):
         self.assertUrlExist('story-advance', {'pk': 1})
+
+    def test_story_on_board_url(self):
+        self.assertUrlExist('story-onboard', {'pk': 1})

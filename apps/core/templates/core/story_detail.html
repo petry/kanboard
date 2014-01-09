@@ -11,6 +11,12 @@
             {% if object.boardposition.status.next %}
                 <a class="btn btn-primary"
                    href="{% url 'story-advance' object.id %}">To {{ object.boardposition.status.next }}</a>
+            {% else %}
+                <form class="form-inline" role="form" method="post" action="{% url 'story-onboard' story.id %}">
+                    {% csrf_token %}
+                    {{ board_form }}
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </form>
             {% endif %}
         </div>
     </div>
