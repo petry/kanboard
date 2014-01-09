@@ -37,19 +37,3 @@ class BoardDetailViewTest(TestCase):
         step2 = dom.cssselect('.steps .panel')[1]
         title = step2.cssselect('.story .label-default')[0]
         self.assertEqual(title.text.strip(), "#{0} {1}".format(story.id, story.name))
-
-    def test_story_should_have_icebox_panel_when_has_story_without_board(self):
-        mommy.make(Story)
-        response = BoardDetailView.as_view()(self.request, pk=self.board.pk)
-        dom = html.fromstring(response.rendered_content)
-
-        title = dom.cssselect('.icebox .panel h3.panel-title')[0]
-        self.assertEqual(title.text, "ICEBOX")
-
-    def test_story_should_be_on_icebox_when_it_any_other_board(self):
-        story = mommy.make(Story)
-        response = BoardDetailView.as_view()(self.request, pk=self.board.pk)
-        dom = html.fromstring(response.rendered_content)
-
-        title = dom.cssselect('.icebox .panel .panel-body .story .label-default')[0]
-        self.assertEqual(title.text.strip(), "#{0} {1}".format(story.id, story.name))

@@ -9,14 +9,14 @@ from apps.core.models import Board, Story
 class BoardListView(ListView):
     model = Board
 
+    def get_context_data(self, **kwargs):
+        context = super(BoardListView, self).get_context_data(**kwargs)
+        context['icebox'] = Story.objects.filter(boardposition=None)
+        return context
+
 
 class BoardDetailView(DetailView):
     model = Board
-
-    def get_context_data(self, **kwargs):
-        context = super(BoardDetailView, self).get_context_data(**kwargs)
-        context['icebox'] = Story.objects.filter(boardposition=None)
-        return context
 
 
 class StoryDetailView(DetailView):

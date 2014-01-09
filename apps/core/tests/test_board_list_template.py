@@ -2,7 +2,7 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase, RequestFactory
 from model_mommy import mommy
 from lxml import html
-from apps.core.models import Board
+from apps.core.models import Board, Story
 from apps.core.views import BoardListView
 
 
@@ -28,3 +28,19 @@ class BoardDetailViewTest(TestCase):
     def test_board_item_should_be_a_link_to_betailed_board(self):
         board = self.dom.cssselect('.table-responsive tbody tr a')[0]
         self.assertEqual(board.attrib['href'], reverse("board-detail", kwargs={"pk":self.board.id}))
+
+    def test_story_should_have_icebox_panel_when_has_story_without_board(self):
+        mommy.make(Story)
+        response = BoardListView.as_view()(self.request, pk=self.board.pk)
+        dom = html.fromstring(response.rendered_content)
+
+        title = dom.cssselect('.icebox .panel h3.panel-title')[0]
+        self.assertEqual(title.text, "ICEBOX")
+
+    def test_story_should_be_on_icebox_when_it_any_other_board(self):
+        story = mommy.make(Story)
+        response = BoardListView.as_view()(self.request, pk=self.board.pk)
+        dom = html.fromstring(response.rendered_content)
+
+        title = dom.cssselect('.icebox .panel .panel-body .story .label-default')[0]
+        self.assertEqual(title.text.strip(), "#{0} {1}".format(story.id, story.name))

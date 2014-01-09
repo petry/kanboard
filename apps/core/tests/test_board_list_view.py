@@ -1,6 +1,6 @@
 from django.test import TestCase, RequestFactory
 from model_mommy import mommy
-from apps.core.models import Board
+from apps.core.models import Board, Story
 from apps.core.views import BoardListView
 
 
@@ -14,3 +14,9 @@ class BoardListViewTest(TestCase):
 
     def test_should_use_the_correctly_template(self):
         self.assertIn('core/board_list.html', self.response.template_name)
+
+    def test_should_have_stories_in_icebox_on_context(self):
+        self.assertIn('icebox', self.response.context_data)
+        self.assertQuerysetEqual(self.response.context_data['icebox'],
+                                 Story.objects.filter(boardposition=None),
+                                 lambda obj:obj)
