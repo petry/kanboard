@@ -1,7 +1,7 @@
 from django.db import models
 from django.test import TestCase
 from model_mommy import mommy
-from apps.core.models import BoardPosition, Board, Step, Issue
+from apps.core.models import BoardPosition, Board, Step, Issue, Transition
 
 
 class ModelTestCase(TestCase):
@@ -40,6 +40,12 @@ class BoardPositionTestCase(TestCase):
         last_position = self.position.go()
         self.assertEqual(self.position.status, self.step2)
         self.assertEqual(last_position, self.step2)
+
+    def test_should_create_a_transition(self):
+        self.position.go()
+        self.assertTrue(
+            Transition.objects.filter(issue=self.issue, step=self.step2).exists()
+        )
 
     def test_should_remain_in_the_last_position(self):
         self.position.go()

@@ -52,6 +52,7 @@ class BoardPosition(models.Model):
         if self.status.next:
             self.status = self.status.next
             self.save()
+            Transition.objects.create(issue=self.issue, step=self.status)
         return self.status
 
 

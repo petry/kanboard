@@ -24,7 +24,7 @@ class IssueOnBoardViewTest(TestCase):
         self.assertEqual(response.url, reverse('board-detail', kwargs={'pk': self.board.id}))
         self.assertEqual(dict(response.items())['Location'], reverse('board-detail', kwargs={'pk': self.board.id}))
 
-    def test_redirect_shoulf_not_be_permanent(self):
+    def test_redirect_should_not_be_permanent(self):
         response = IssueOnBoardView.as_view()(self.request, pk=self.issue.pk)
         self.assertEqual(response.status_code, 302)
 
