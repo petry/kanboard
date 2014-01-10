@@ -1,7 +1,5 @@
 from django.core.urlresolvers import reverse, NoReverseMatch
 from django.test import TestCase
-from model_mommy import mommy
-from apps.core.models import Board
 
 
 class UrlsTest(TestCase):

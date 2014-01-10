@@ -54,6 +54,7 @@ class BoardPosition(models.Model):
             self.save()
         return self.status
 
+
 class Transition(models.Model):
     issue = models.ForeignKey(Issue)
     step = models.ForeignKey(Step)
