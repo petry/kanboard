@@ -1,7 +1,7 @@
 from django.test import TestCase, RequestFactory
 from model_mommy import mommy
 from lxml import html
-from apps.core.models import Board, Step, Story, BoardPosition
+from apps.core.models import Board, Step, Issue, BoardPosition
 from apps.core.views import BoardDetailView
 
 
@@ -29,11 +29,11 @@ class BoardDetailViewTest(TestCase):
         self.assertEqual(self.step2.name, panels[1].text)
         self.assertEqual(self.step3.name, panels[2].text)
 
-    def test_story_should_be_on_step(self):
-        story = mommy.make(Story)
-        mommy.make(BoardPosition, story=story, status=self.step2)
+    def test_issue_should_be_on_step(self):
+        issue = mommy.make(Issue)
+        mommy.make(BoardPosition, issue=issue, status=self.step2)
         response = BoardDetailView.as_view()(self.request, pk=self.board.pk)
         dom = html.fromstring(response.rendered_content)
         step2 = dom.cssselect('.steps .panel')[1]
-        title = step2.cssselect('.story .label-default')[0]
-        self.assertEqual(title.text.strip(), "#{0} {1}".format(story.id, story.name))
+        title = step2.cssselect('.issue .label-default')[0]
+        self.assertEqual(title.text.strip(), "#{0} {1}".format(issue.id, issue.name))

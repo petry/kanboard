@@ -19,7 +19,7 @@ class Board(models.Model):
         return steps
 
 
-class Story(models.Model):
+class Issue(models.Model):
     name = models.CharField(max_length=255)
 
     def __unicode__(self):
@@ -37,12 +37,12 @@ class Step(models.Model):
 
 
 class BoardPosition(models.Model):
-    story = models.OneToOneField(Story)
+    issue = models.OneToOneField(Issue)
     board = models.ForeignKey(Board)
     status = models.ForeignKey('Step', auto_created=True)
 
     def __unicode__(self):
-        return "Story #{0} on board {1} in {2}".format(self.story.id, self.board.id, self.status.name)
+        return "Issue #{0} on board {1} in {2}".format(self.issue.id, self.board.id, self.status.name)
 
     def go(self):
         if self.status.next:
@@ -51,9 +51,9 @@ class BoardPosition(models.Model):
         return self.status
 
 class Transition(models.Model):
-    story = models.ForeignKey(Story)
+    issue = models.ForeignKey(Issue)
     step = models.ForeignKey(Step)
     date = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
-        return "#{0} in {1} on {2}".format(self.story.id, self.step.name, self.date)
+        return "#{0} in {1} on {2}".format(self.issue.id, self.step.name, self.date)

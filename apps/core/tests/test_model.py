@@ -2,20 +2,20 @@ from django.test import TestCase
 from django.db import models
 from model_mommy import mommy
 
-from apps.core.models import Story, Board, Step, Transition
+from apps.core.models import Issue, Board, Step, Transition
 
 
-class StoryTestCase(TestCase):
+class IssueTestCase(TestCase):
     def test_should_have_all_fields_name(self):
         self.assertEqual(['boardposition', u'id', 'name', 'transition'],
-                         Story._meta.get_all_field_names())
+                         Issue._meta.get_all_field_names())
 
     def test_name_should_be_a_char_field(self):
-        member_field = Story._meta.get_field_by_name('name')[0]
+        member_field = Issue._meta.get_field_by_name('name')[0]
         self.assertIsInstance(member_field, models.CharField)
 
-    def test_story_instance_should_output_name(self):
-        instance = mommy.make(Story)
+    def test_issue_instance_should_output_name(self):
+        instance = mommy.make(Issue)
         self.assertEqual(unicode(instance), instance.name)
 
 
@@ -51,16 +51,16 @@ class StepTestCase(TestCase):
 
 class TransitionTestCase(TestCase):
     def test_should_have_all_fields_name(self):
-        self.assertEqual(['date', u'id', 'step', 'story'], Transition._meta.get_all_field_names())
+        self.assertEqual(['date', u'id', 'issue', 'step'], Transition._meta.get_all_field_names())
 
     def test_date_should_be_a_datetime_field(self):
         member_field = Transition._meta.get_field_by_name('date')[0]
         self.assertIsInstance(member_field, models.DateTimeField)
 
-    def test_story_should_be_a_foreign_key(self):
-        member_field = Transition._meta.get_field_by_name('story')[0]
+    def test_issue_should_be_a_foreign_key(self):
+        member_field = Transition._meta.get_field_by_name('issue')[0]
         self.assertIsInstance(member_field, models.ForeignKey)
-        self.assertEqual(Story, member_field.related.parent_model)
+        self.assertEqual(Issue, member_field.related.parent_model)
 
     def test_next_should_be_a_foreign_key(self):
         member_field = Transition._meta.get_field_by_name('step')[0]
@@ -70,4 +70,4 @@ class TransitionTestCase(TestCase):
     def test_board_instance_should_output_name(self):
         instance = mommy.make(Transition)
         self.assertEqual(unicode(instance),
-                         u"#{0} in {1} on {2}".format(instance.story.id, instance.step.name, instance.date))
+                         u"#{0} in {1} on {2}".format(instance.issue.id, instance.step.name, instance.date))

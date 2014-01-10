@@ -1,6 +1,6 @@
 from django.test import TestCase, RequestFactory
 from model_mommy import mommy
-from apps.core.models import Board, Story
+from apps.core.models import Board, Issue
 from apps.core.views import BoardDetailView
 
 
@@ -10,7 +10,7 @@ class BoardDetailViewTest(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
         self.board = mommy.make(Board)
-        self.story = mommy.make(Story)
+        self.issue = mommy.make(Issue)
         self.request = self.factory.get('/boards/1/')
         self.response = BoardDetailView.as_view()(self.request, pk=self.board.pk)
 

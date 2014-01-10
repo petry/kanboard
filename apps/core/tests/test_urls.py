@@ -22,11 +22,11 @@ class UrlsTest(TestCase):
     def test_board_detail_url(self):
         self.assertUrlExist('board-detail', {'pk': 1})
 
-    def test_story_detail_url(self):
-        self.assertUrlExist('story-detail', {'pk': 1})
+    def test_issue_detail_url(self):
+        self.assertUrlExist('issue-detail', {'pk': 1})
 
-    def test_story_advance_url(self):
-        self.assertUrlExist('story-advance', {'pk': 1})
+    def test_issue_advance_url(self):
+        self.assertUrlExist('issue-advance', {'pk': 1})
 
-    def test_story_on_board_url(self):
-        self.assertUrlExist('story-onboard', {'pk': 1})
+    def test_issue_on_board_url(self):
+        self.assertUrlExist('issue-onboard', {'pk': 1})

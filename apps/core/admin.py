@@ -1,5 +1,5 @@
 from django.contrib import admin
-from apps.core.models import Board, Story, Step, Transition, BoardPosition
+from apps.core.models import Board, Issue, Step, Transition, BoardPosition
 
 
 class StepInline(admin.TabularInline):
@@ -11,7 +11,7 @@ class PositionInline(admin.TabularInline):
     model = BoardPosition
 
 
-class StoryAdmin(admin.ModelAdmin):
+class IssueAdmin(admin.ModelAdmin):
     list_display = ['name']
     inlines = [PositionInline]
 
@@ -20,5 +20,5 @@ class BoardAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Board, BoardAdmin)
-admin.site.register(Story, StoryAdmin)
+admin.site.register(Issue, IssueAdmin)
 admin.site.register(Transition)

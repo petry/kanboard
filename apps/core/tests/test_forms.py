@@ -2,7 +2,7 @@ from django.forms.widgets import HiddenInput
 from django.test import TestCase
 from model_mommy import mommy
 from apps.core.forms import BoardPositionForm
-from apps.core.models import Board, Step, Story, BoardPosition
+from apps.core.models import Board, Step, Issue, BoardPosition
 
 
 class OnBoardFormTestCase(TestCase):
@@ -12,7 +12,7 @@ class OnBoardFormTestCase(TestCase):
         self.step2 = Step.objects.create(board=self.board, name='step 2')
         self.step1 = Step.objects.create(board=self.board, name='step 1',
                                          next=self.step2, initial=True)
-        self.story = mommy.make(Story)
+        self.issue = mommy.make(Issue)
 
 
     def test_shoul_have_only_board_field(self):
@@ -25,11 +25,11 @@ class OnBoardFormTestCase(TestCase):
         self.assertQuerysetEqual(Board.objects.all(), board.queryset, lambda obj:obj)
 
     def test_should_create_a_board_position(self):
-        self.form = BoardPositionForm(data={'story': self.story.id, 'board': self.board.id})
+        self.form = BoardPositionForm(data={'issue': self.issue.id, 'board': self.board.id})
         position = self.form.on_board()
         self.assertIsInstance(position, BoardPosition)
 
     def test_initial_step_must_be_a_default_status_of_position(self):
-        self.form = BoardPositionForm(data={'story': self.story.id, 'board': self.board.id})
+        self.form = BoardPositionForm(data={'issue': self.issue.id, 'board': self.board.id})
         position = self.form.on_board()
         position.status = self.board.step_set.get(initial=True)

@@ -2,7 +2,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">Story #{{ object.id }} - {{ object.name }}</h4>
+            <h4 class="modal-title">Issue #{{ object.id }} - {{ object.name }}</h4>
         </div>
         <div class="modal-body">
             <p>One fine body&hellip;</p>
@@ -10,9 +10,9 @@
         <div class="modal-footer">
             {% if object.boardposition.status.next %}
                 <a class="btn btn-primary"
-                   href="{% url 'story-advance' object.id %}">To {{ object.boardposition.status.next }}</a>
+                   href="{% url 'issue-advance' object.id %}">To {{ object.boardposition.status.next }}</a>
             {% else %}
-                <form class="form-inline" role="form" method="post" action="{% url 'story-onboard' story.id %}">
+                <form class="form-inline" role="form" method="post" action="{% url 'issue-onboard' issue.id %}">
                     {% csrf_token %}
                     {{ board_form }}
                     <button type="submit" class="btn btn-primary">Add</button>
