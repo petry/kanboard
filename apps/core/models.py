@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.db import models
 
 
@@ -17,6 +18,9 @@ class Board(models.Model):
                 break
             current_step = current_step.next
         return steps
+
+    def get_absolute_url(self):
+        return reverse('board-detail', kwargs={"pk": self.id})
 
 
 class Issue(models.Model):

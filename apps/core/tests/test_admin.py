@@ -2,7 +2,7 @@
 from django.test import TestCase
 from django.contrib import admin as django_admin
 from apps.core.admin import IssueAdmin, BoardAdmin
-from apps.core.models import Board, Step, Issue, Transition
+from apps.core.models import Board, Issue, Transition
 
 
 class CoreAdminTest(TestCase):

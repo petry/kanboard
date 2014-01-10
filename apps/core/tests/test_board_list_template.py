@@ -27,7 +27,7 @@ class BoardDetailViewTest(TestCase):
 
     def test_board_item_should_be_a_link_to_betailed_board(self):
         board = self.dom.cssselect('.table-responsive tbody tr a')[0]
-        self.assertEqual(board.attrib['href'], reverse("board-detail", kwargs={"pk":self.board.id}))
+        self.assertEqual(board.attrib['href'], reverse("board-detail", kwargs={"pk": self.board.id}))
 
     def test_issue_should_have_icebox_panel_when_has_issue_without_board(self):
         mommy.make(Issue)

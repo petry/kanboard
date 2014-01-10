@@ -1,4 +1,3 @@
-from django.forms.widgets import HiddenInput
 from django.test import TestCase
 from model_mommy import mommy
 from apps.core.forms import BoardPositionForm
@@ -14,7 +13,6 @@ class OnBoardFormTestCase(TestCase):
                                          next=self.step2, initial=True)
         self.issue = mommy.make(Issue)
 
-
     def test_shoul_have_only_board_field(self):
         self.form = BoardPositionForm()
         self.assertEqual(self.form.base_fields.keys(), ['board'])
@@ -22,7 +20,7 @@ class OnBoardFormTestCase(TestCase):
     def test_board_field_must_have_all_board_choices(self):
         self.form = BoardPositionForm()
         board = self.form.base_fields['board']
-        self.assertQuerysetEqual(Board.objects.all(), board.queryset, lambda obj:obj)
+        self.assertQuerysetEqual(Board.objects.all(), board.queryset, lambda obj: obj)
 
     def test_should_create_a_board_position(self):
         self.form = BoardPositionForm(data={'issue': self.issue.id, 'board': self.board.id})

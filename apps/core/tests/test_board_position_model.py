@@ -22,7 +22,6 @@ class ModelTestCase(TestCase):
 
 class BoardPositionTestCase(TestCase):
 
-
     def setUp(self):
         super(BoardPositionTestCase, self).setUp()
         self.board = mommy.make(Board)

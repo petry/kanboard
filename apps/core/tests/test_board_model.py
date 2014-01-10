@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.test import TestCase
 from model_mommy import mommy
@@ -20,8 +21,17 @@ class ModelTestCase(TestCase):
 
 class BoardTestCase(TestCase):
 
-    def test_should_find_all_steps_in_order(self):
+    def setUp(self):
         self.board = mommy.make(Board)
+        super(BoardTestCase, self).setUp()
+
+    def test_should_output_absolute_url(self):
+        self.assertEqual(
+            self.board.get_absolute_url(),
+            reverse('board-detail', kwargs={'pk': self.board.id})
+        )
+
+    def test_should_find_all_steps_in_order(self):
         self.step3 = Step.objects.create(board=self.board, name='step 3')
         self.step2 = Step.objects.create(board=self.board, name='step 2',
                                          next=self.step3)
@@ -30,3 +40,4 @@ class BoardTestCase(TestCase):
 
         self.assertEqual(self.board.steps(),
                          [self.step1, self.step2, self.step3])
+
