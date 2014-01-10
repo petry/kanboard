@@ -1,5 +1,5 @@
 from django import forms
-from apps.core.models import Board, BoardPosition, Issue
+from apps.core.models import Board, BoardPosition, Issue, Transition
 
 
 class BoardPositionForm(forms.ModelForm):
@@ -19,4 +19,6 @@ class BoardPositionForm(forms.ModelForm):
         initial_step = board.step_set.get(initial=True)
         self.instance.issue = Issue.objects.get(id=self.data['issue'])
         self.instance.status = initial_step
+        Transition.objects.create(issue=self.instance.issue, step=initial_step)
+
         return self.save()

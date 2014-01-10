@@ -1,7 +1,7 @@
 from django.test import TestCase
 from model_mommy import mommy
 from apps.core.forms import BoardPositionForm
-from apps.core.models import Board, Step, Issue, BoardPosition
+from apps.core.models import Board, Step, Issue, BoardPosition, Transition
 
 
 class OnBoardFormTestCase(TestCase):
@@ -31,3 +31,10 @@ class OnBoardFormTestCase(TestCase):
         self.form = BoardPositionForm(data={'issue': self.issue.id, 'board': self.board.id})
         position = self.form.on_board()
         position.status = self.board.step_set.get(initial=True)
+
+    def test_should_create_a_transition(self):
+        self.form = BoardPositionForm(data={'issue': self.issue.id, 'board': self.board.id})
+        self.form.on_board()
+        self.assertTrue(
+            Transition.objects.filter(issue=self.issue, step=self.step1).exists()
+        )
