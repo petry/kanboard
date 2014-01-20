@@ -20,6 +20,9 @@ class UrlsTest(TestCase):
     def test_board_detail_url(self):
         self.assertUrlExist('board-detail', {'pk': 1})
 
+    def test_board_report_url(self):
+        self.assertUrlExist('board-report', {'pk': 1})
+
     def test_issue_detail_url(self):
         self.assertUrlExist('issue-detail', {'pk': 1})
 
