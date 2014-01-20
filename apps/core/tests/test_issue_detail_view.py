@@ -16,6 +16,6 @@ class IssueDetailViewTest(TestCase):
     def test_should_use_the_correctly_template(self):
         self.assertIn('core/issue_detail.html', self.response.template_name)
 
-    def test_shoul_have_board_form_on_context(self):
+    def test_should_have_board_form_on_context(self):
         self.assertTrue(self.response.context_data.has_key('board_form'))
         self.assertIsInstance(self.response.context_data['board_form'], BoardPositionForm)

@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.core.urlresolvers import reverse
 from django.db import models
 
@@ -28,6 +29,15 @@ class Issue(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def get_first_transition(self):
+        return self.transition_set.get(step__initial=True)
+
+    def get_last_transition(self):
+        return self.transition_set.get(step__next=None)
+
+    def get_duration(self):
+        return self.get_last_transition().date - self.get_first_transition().date
 
 
 class Step(models.Model):

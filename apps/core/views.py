@@ -19,6 +19,23 @@ class BoardDetailView(DetailView):
     model = Board
 
 
+class BoardReportView(ListView):
+    model = Issue
+    template_name = 'core/board_report.html'
+    board = None
+
+
+    def get(self, request, *args, **kwargs):
+        self.queryset = Issue.objects.filter(boardposition__board=kwargs['pk'])
+        self.board = Board.objects.get(id=kwargs['pk'])
+        return super(BoardReportView, self).get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(BoardReportView, self).get_context_data(**kwargs)
+        context['board'] = self.board
+        return context
+
+
 class IssueDetailView(DetailView):
     model = Issue
 
