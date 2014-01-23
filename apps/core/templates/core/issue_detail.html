@@ -10,7 +10,7 @@
         <div class="modal-footer">
             {% if object.boardposition.status.next %}
                 <a class="btn btn-primary"
-                   href="{% url 'issue-advance' object.id %}">To {{ object.boardposition.status.next }}</a>
+                   href="{% url 'issue-advance' object.id %}">To {{ object.boardposition.status.next.name }}</a>
             {% else %}
                 <form class="form-inline" role="form" method="post" action="{% url 'issue-onboard' issue.id %}">
                     {% csrf_token %}

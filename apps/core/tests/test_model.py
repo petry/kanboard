@@ -46,7 +46,7 @@ class StepTestCase(TestCase):
 
     def test_board_instance_should_output_name(self):
         instance = mommy.make(Step)
-        self.assertEqual(unicode(instance), instance.name)
+        self.assertEqual(unicode(instance), "{0} - {1}".format(instance.board, instance.name))
 
 
 class TransitionTestCase(TestCase):
