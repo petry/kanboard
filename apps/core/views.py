@@ -18,12 +18,19 @@ class BoardListView(ListView):
 class BoardDetailView(DetailView):
     model = Board
 
+    def get_context_data(self, **kwargs):
+        context = super(BoardDetailView, self).get_context_data(**kwargs)
+        steps = self.object.step_set.count()
+        if steps:
+            context['panel_size_class'] = "col-md-{0}".format(12/steps)
+
+        return context
+
 
 class BoardReportView(ListView):
     model = Issue
     template_name = 'core/board_report.html'
     board = None
-
 
     def get(self, request, *args, **kwargs):
         self.queryset = Issue.objects.filter(boardposition__board=kwargs['pk'])

@@ -1,5 +1,5 @@
 {% extends "grid_base.html" %}
-{% load static %}
+{% load static mathfilters %}
 {% block css %}
     <link href="{% static "css/dashboard.css" %}" rel="stylesheet">
 {% endblock %}
@@ -10,7 +10,7 @@
 
         <div class="steps">
             {% for step in object.steps %}
-                <div class="col-md-4">
+                <div class="{{ panel_size_class }}">
 
                     <div class="panel panel-primary">
                         <div class="panel-heading">
