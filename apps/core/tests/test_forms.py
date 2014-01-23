@@ -22,6 +22,10 @@ class OnBoardFormTestCase(TestCase):
         board = self.form.base_fields['board']
         self.assertQuerysetEqual(Board.objects.all(), board.queryset, lambda obj: obj)
 
+    def test_board_should_return_none_if_form_is_invalid(self):
+        self.form = BoardPositionForm(data={'issue': self.issue.id, 'board': ""})
+        position = self.form.on_board()
+
     def test_should_create_a_board_position(self):
         self.form = BoardPositionForm(data={'issue': self.issue.id, 'board': self.board.id})
         position = self.form.on_board()
