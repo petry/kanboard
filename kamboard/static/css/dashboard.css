@@ -1,3 +1,9 @@
 .issue{
-    font-size: 18px;
+    display: inline-block;
+}
+
+.issue-item{
+padding-bottom: 10px;
+    padding-top: 0;
+    white-space: pre-line;
 }
