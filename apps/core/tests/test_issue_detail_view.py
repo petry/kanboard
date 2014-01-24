@@ -5,7 +5,21 @@ from apps.core.models import Issue
 from apps.core.views import IssueDetailView
 
 
-class IssueDetailViewTest(TestCase):
+class IssueDetailDefaultTest(TestCase):
+
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.issue = mommy.make(Issue)
+        self.request = self.factory.get('/boards/1/')
+
+    def test_should_have_board_form_on_context(self):
+        self.response = IssueDetailView.as_view()(self.request, pk=self.issue.pk)
+        self.assertTrue(self.response.context_data.has_key('board_form'))
+        self.assertIsInstance(self.response.context_data['board_form'], BoardPositionForm)
+
+
+
+class IssueDetailViewTest(IssueDetailDefaultTest):
 
     def setUp(self):
         self.factory = RequestFactory()
@@ -14,8 +28,19 @@ class IssueDetailViewTest(TestCase):
         self.response = IssueDetailView.as_view()(self.request, pk=self.issue.pk)
 
     def test_should_use_the_correctly_template(self):
+        self.response = IssueDetailView.as_view()(self.request, pk=self.issue.pk)
         self.assertIn('core/issue_detail.html', self.response.template_name)
 
-    def test_should_have_board_form_on_context(self):
-        self.assertTrue(self.response.context_data.has_key('board_form'))
-        self.assertIsInstance(self.response.context_data['board_form'], BoardPositionForm)
+
+class IssueDetailAjaxViewTest(IssueDetailDefaultTest):
+
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.issue = mommy.make(Issue)
+        self.request = self.factory.get('/boards/1/', HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+
+    def test_should_use_the_correctly_template(self):
+        self.response = IssueDetailView.as_view()(self.request, pk=self.issue.pk)
+        self.assertIn('core/issue_detail_ajax.html', self.response.template_name)
+
+

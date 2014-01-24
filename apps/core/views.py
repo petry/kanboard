@@ -49,6 +49,8 @@ class IssueDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(IssueDetailView, self).get_context_data(**kwargs)
         context['board_form'] = BoardPositionForm()
+        if self.request.is_ajax():
+            self.template_name = 'core/issue_detail_ajax.html'
         return context
 
 

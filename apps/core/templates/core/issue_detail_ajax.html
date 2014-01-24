@@ -1,17 +1,17 @@
-{% extends "grid_base.html" %}
-{% load static %}
-
-{% block container %}
-    <div class="container">
-        <div class="page-header">
-            <h1>Issue #{{ object.id }}
-            <small>{{ object.name }}</small>
-            </h1>
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Issue #{{ object.id }} - {{ object.name }}</h4>
         </div>
-        <div class="well text-muted">
-            {{ object.description|linebreaks }}
+        <div class="modal-body">
+            {% if  object.description%}
+            <div class="well text-muted">
+                {{ object.description|linebreaks }}
+            </div>
+            {% endif %}
         </div>
-        <div class="buttons pull-right">
+        <div class="modal-footer">
             {% if object.boardposition.status.next %}
                 <a class="btn btn-primary"
                    href="{% url 'issue-advance' object.id %}">To {{ object.boardposition.status.next.name }}</a>
@@ -24,4 +24,4 @@
             {% endif %}
         </div>
     </div>
-{% endblock %}
+</div>
