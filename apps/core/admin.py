@@ -11,17 +11,28 @@ class PositionInline(admin.TabularInline):
     model = BoardPosition
 
 
+class TransitionInline(admin.TabularInline):
+    model = Transition
+    extra = 0
+
+
 class IssueAdmin(admin.ModelAdmin):
-    list_display = ['name']
-    inlines = [PositionInline]
+    list_filter = ['boardposition__board']
+    inlines = [
+        PositionInline,
+        TransitionInline
+    ]
 
 
 class BoardAdmin(admin.ModelAdmin):
-    inlines = [StepInline]
+    inlines = [
+        StepInline
+    ]
 
 
 class TransitionAdmin(admin.ModelAdmin):
     list_display = ('issue', 'step', 'date')
+
 
 admin.site.register(Board, BoardAdmin)
 admin.site.register(Issue, IssueAdmin)
