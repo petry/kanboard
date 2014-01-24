@@ -2,3 +2,4 @@ mock
 Django==1.6.1
 django-toolbelt==0.0.1
 South==0.8.4
+django-mathfilters==0.1.3
