@@ -1,2 +1,2 @@
-web: gunicorn kamboard.wsgi
+web: gunicorn kanboard.wsgi
 

@@ -1,6 +1,6 @@
-kamboard
+kanboard
 ========
 
-[![Build Status](https://travis-ci.org/petry/kamboard.png?branch=master)](https://travis-ci.org/petry/kamboard)
-[![Coverage Status](https://coveralls.io/repos/petry/kamboard/badge.png)](https://coveralls.io/r/petry/kamboard)
-[![Code Health](https://landscape.io/github/petry/kamboard/master/landscape.png)](https://landscape.io/github/petry/kamboard/master)
+[![Build Status](https://travis-ci.org/petry/kanboard.png?branch=master)](https://travis-ci.org/petry/kanboard)
+[![Coverage Status](https://coveralls.io/repos/petry/kanboard/badge.png)](https://coveralls.io/r/petry/kanboard)
+[![Code Health](https://landscape.io/github/petry/kanboard/master/landscape.png)](https://landscape.io/github/petry/kanboard/master)

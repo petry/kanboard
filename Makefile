@@ -4,8 +4,8 @@ deps:
 	@pip install -r requirements_test.txt
 
 migrate:
-	@python manage.py migrate --settings kamboard.settings_local
-	@python manage.py loaddata kamboard/fixtures/initial_data.json  --settings=kamboard.settings_local
+	@python manage.py migrate --settings kanboard.settings_local
+	@python manage.py loaddata kanboard/fixtures/initial_data.json  --settings=kanboard.settings_local
 
 setup: deps migrate
 
@@ -13,7 +13,7 @@ clean:
 	@find . -name "*.pyc" -delete
 
 run: clean
-	@python manage.py runserver 0.0.0.0:8000 --settings kamboard.settings_local
+	@python manage.py runserver 0.0.0.0:8000 --settings kanboard.settings_local
 
 test: clean
 	@py.test

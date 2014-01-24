@@ -5,6 +5,6 @@ local_settings.py
 .idea/
 staticfiles
 db.sqlite3
-kamboard.egg-info/
+kanboard.egg-info/
 .coverage
 htmlcov/
