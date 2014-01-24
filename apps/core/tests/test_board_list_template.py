@@ -41,6 +41,6 @@ class BoardDetailViewTest(TestCase):
         issue = mommy.make(Issue)
         response = BoardListView.as_view()(self.request, pk=self.board.pk)
         dom = html.fromstring(response.rendered_content)
-
-        title = dom.cssselect('.icebox .panel .panel-body .issue .label-default')[0]
+        panel = dom.cssselect('.icebox .panel .panel-body')[0]
+        title = panel.cssselect('.issue-item.badge')[0]
         self.assertEqual(title.text.strip(), "#{0} {1}".format(issue.id, issue.name))

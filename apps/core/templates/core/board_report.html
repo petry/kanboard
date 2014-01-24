@@ -1,0 +1,45 @@
+{% extends "grid_base.html" %}
+{% load static %}
+{% load issue_tags %}
+{% block css %}
+    <link href="{% static "css/dashboard.css" %}" rel="stylesheet">
+{% endblock %}
+
+{% block container %}
+    <div class="container">
+        <h1>Kamboard</h1>
+
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Issue</th>
+                    <th>Status</th>
+                    <th>Duration</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                {% for issue in object_list %}
+                    <tr>
+                        <td>{{ issue }}</td>
+                        <td><span class="label label-primary">{{ issue.boardposition.status.name }}</span></td>
+                        {% if  issue.get_last_transition %}
+                            <td>{{ issue.get_last_transition.date }}</td>
+                        {% else %}
+                            <td>
+                                <span class="label label-warning">expected</span>
+                                {{ issue.get_first_transition.date|date_timedelta:object_list.duration_avg }}
+                            </td>
+                        {% endif %}
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+
+{% endblock %}

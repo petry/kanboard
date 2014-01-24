@@ -35,5 +35,5 @@ class BoardDetailViewTest(TestCase):
         response = BoardDetailView.as_view()(self.request, pk=self.board.pk)
         dom = html.fromstring(response.rendered_content)
         step2 = dom.cssselect('.steps .panel')[1]
-        title = step2.cssselect('.issue .label-default')[0]
+        title = step2.cssselect('.issue-item.badge')[0]
         self.assertEqual(title.text.strip(), "#{0} {1}".format(issue.id, issue.name))
