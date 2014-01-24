@@ -5,7 +5,11 @@
             <h4 class="modal-title">Issue #{{ object.id }} - {{ object.name }}</h4>
         </div>
         <div class="modal-body">
-            <p>One fine body&hellip;</p>
+            {% if  object.description%}
+            <div class="well text-muted">
+                {{ object.description|linebreaks }}
+            </div>
+            {% endif %}
         </div>
         <div class="modal-footer">
             {% if object.boardposition.status.next %}

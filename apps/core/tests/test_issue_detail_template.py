@@ -11,7 +11,7 @@ class IssueDetailViewTest(TestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
-        self.issue = mommy.make(Issue)
+        self.issue = mommy.make(Issue, description="some description")
         self.step2 = mommy.make(Step)
         self.step1 = mommy.make(Step, next=self.step2)
         self.request = self.factory.get('/issue/1/')
@@ -21,6 +21,12 @@ class IssueDetailViewTest(TestCase):
         dom = html.fromstring(response.rendered_content)
         title = dom.cssselect('.modal-dialog .modal-content h4.modal-title')[0]
         self.assertEqual(title.text, "Issue #{0} - {1}".format(self.issue.id, self.issue.name))
+
+    def test_should_have_description_on_body(self):
+        response = IssueDetailView.as_view()(self.request, pk=self.issue.pk)
+        dom = html.fromstring(response.rendered_content)
+        description = dom.cssselect('.modal-dialog .modal-content div.modal-body .well.text-muted p')[0]
+        self.assertEqual(description.text.strip(), self.issue.description)
 
     def test_should_have_issue_advance_link(self):
         mommy.make(BoardPosition, issue=self.issue, status=self.step1)

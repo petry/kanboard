@@ -34,6 +34,7 @@ class IssueQuerySet(QuerySet):
 
 class Issue(models.Model):
     name = models.CharField(max_length=255)
+    description = models.TextField(blank=True, null=True)
     objects = QuerySetManager(IssueQuerySet)
 
     def __unicode__(self):
