@@ -1,6 +1,6 @@
 from distutils.core import setup
 
-setup(name='kamboard',
+setup(name='kanboard',
       version='0.1'
 )
 

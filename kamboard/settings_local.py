@@ -3,7 +3,7 @@ from settings_default import *
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'kamboard',
+        'NAME': 'kanboard',
         'USER': 'root',
     }
 }

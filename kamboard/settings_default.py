@@ -40,9 +40,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'kamboard.urls'
+ROOT_URLCONF = 'kanboard.urls'
 
-WSGI_APPLICATION = 'kamboard.wsgi.application'
+WSGI_APPLICATION = 'kanboard.wsgi.application'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
@@ -68,9 +68,9 @@ STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'kamboard/static'),
+    os.path.join(BASE_DIR, 'kanboard/static'),
 )
 
 TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR, 'kamboard/templates'),
+    os.path.join(BASE_DIR, 'kanboard/templates'),
 )
