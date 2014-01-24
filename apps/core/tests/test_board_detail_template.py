@@ -19,10 +19,6 @@ class BoardDetailViewTest(TestCase):
         response = BoardDetailView.as_view()(self.request, pk=self.board.pk)
         self.dom = html.fromstring(response.rendered_content)
 
-    def test_should_have_board_name_on_title(self):
-        title = self.dom.cssselect('h1')[0]
-        self.assertEqual(title.text, self.board.name)
-
     def test_should_have_steps_on_the_board(self):
         panels = self.dom.cssselect('.steps .panel .panel-heading h3')
         self.assertEqual(self.step1.name, panels[0].text)

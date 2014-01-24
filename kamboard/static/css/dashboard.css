@@ -1,9 +1,13 @@
-.issue{
+.issue {
     display: inline-block;
 }
 
-.issue-item{
-padding-bottom: 10px;
+.issue-item {
+    padding-bottom: 10px;
     padding-top: 0;
     white-space: pre-line;
+}
+
+body {
+    padding: 70px 0;
 }
