@@ -10,7 +10,7 @@ class BoardPositionForm(forms.ModelForm):
 
     class Meta:
         model = BoardPosition
-        exclude = ['status', 'issue']
+        exclude = ['status', 'issue', 'show']
 
     def on_board(self):
         if not self.is_valid():

@@ -29,11 +29,22 @@ class BoardDetailViewTest(TestCase):
         self.assertEqual(self.step2.name, panels[1].text)
         self.assertEqual(self.step3.name, panels[2].text)
 
-    def test_issue_should_be_on_step(self):
+    def test_should_have_an_issue_on_step(self):
         issue = mommy.make(Issue)
         mommy.make(BoardPosition, issue=issue, status=self.step2)
         response = BoardDetailView.as_view()(self.request, pk=self.board.pk)
         dom = html.fromstring(response.rendered_content)
         step2 = dom.cssselect('.steps .panel')[1]
+
+        self.assertEqual(1, len(step2.cssselect('.issue-item.badge')))
         title = step2.cssselect('.issue-item.badge')[0]
         self.assertEqual(title.text.strip(), "#{0} {1}".format(issue.id, issue.name))
+
+    def test_should_not_have_an_issue_on_step_if_flag_id_false(self):
+        issue = mommy.make(Issue)
+        mommy.make(BoardPosition, issue=issue, status=self.step2, show=False)
+        response = BoardDetailView.as_view()(self.request, pk=self.board.pk)
+        dom = html.fromstring(response.rendered_content)
+        step2 = dom.cssselect('.steps .panel')[1]
+
+        self.assertEqual(0, len(step2.cssselect('.issue-item.badge')))

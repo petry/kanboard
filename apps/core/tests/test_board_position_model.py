@@ -6,7 +6,7 @@ from apps.core.models import BoardPosition, Board, Step, Issue, Transition
 
 class ModelTestCase(TestCase):
     def test_should_have_all_fields_name(self):
-        self.assertEqual(['board', u'id', 'issue', 'status'],
+        self.assertEqual(['board', u'id', 'issue', 'show', 'status'],
                          BoardPosition._meta.get_all_field_names())
 
     def test_name_should_be_a_char_field(self):

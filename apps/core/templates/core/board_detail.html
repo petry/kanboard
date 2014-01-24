@@ -18,7 +18,9 @@
                         </div>
                         <div class="panel-body">
                             {% for position in step.boardposition_set.all %}
+                                {% if position.show %}
                                 {% include "core/includes/issue_list_item.html" with object=position.issue only %}
+                                {% endif %}
                             {% endfor %}
 
                         </div>

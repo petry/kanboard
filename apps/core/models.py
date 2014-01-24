@@ -72,6 +72,7 @@ class BoardPosition(models.Model):
     issue = models.OneToOneField(Issue)
     board = models.ForeignKey(Board)
     status = models.ForeignKey('Step', auto_created=True)
+    show = models.BooleanField(default=True)
 
     def __unicode__(self):
         return "Issue #{0} on board {1} in {2}".format(self.issue.id, self.board.id, self.status.name)
