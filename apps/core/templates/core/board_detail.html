@@ -5,7 +5,17 @@
 {% endblock %}
 
 {% block container %}
-    <div class="container">
+    <div class="container links">
+        <div class="col-md-12">
+            <ul class="nav nav-pills navbar-right">
+                <li>
+                    <a href="{% url "board-report" object.id %}" class="glyphicon glyphicon-print">
+                        <span>Report</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
         <div class="steps">
             {% for step in object.steps %}
                 <div class="{{ panel_size_class }}">

@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.test import TestCase, RequestFactory
 from model_mommy import mommy
 from lxml import html
@@ -18,6 +19,11 @@ class BoardDetailViewTest(TestCase):
         self.step1 = mommy.make(Step, board=self.board, next=self.step2, initial=True)
         response = BoardDetailView.as_view()(self.request, pk=self.board.pk)
         self.dom = html.fromstring(response.rendered_content)
+
+    def test_should_have_report_link(self):
+        link = self.dom.cssselect('.links .glyphicon.glyphicon-print')[0]
+        self.assertEqual(link.attrib['href'], reverse('board-report', kwargs={'pk': self.board.id}))
+        self.assertEqual(link.cssselect('span')[0].text, 'Report')
 
     def test_should_have_steps_on_the_board(self):
         panels = self.dom.cssselect('.steps .panel .panel-heading h3')
