@@ -28,7 +28,8 @@ INSTALLED_APPS = (
     'mathfilters',
     'south',
     'apps.core',
-    'apps.issues'
+    'apps.issues',
+    'apps.boards',
 
 )
 
