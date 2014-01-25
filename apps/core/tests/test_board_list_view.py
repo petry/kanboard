@@ -1,7 +1,8 @@
 from django.test import TestCase, RequestFactory
 from model_mommy import mommy
-from apps.core.models import Board, Issue
+from apps.core.models import Board
 from apps.core.views import BoardListView
+from apps.issues.models import Issue
 
 
 class BoardListViewTest(TestCase):

@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 from django.test import TestCase
 from django.contrib import admin as django_admin
-from apps.core.admin import IssueAdmin, BoardAdmin, TransitionAdmin
-from apps.core.models import Board, Issue, Transition
+from apps.core.admin import BoardAdmin, TransitionAdmin
+from apps.core.models import Board, Transition
+from apps.issues.admin import IssueAdmin
+from apps.issues.models import Issue
 
 
 class CoreAdminTest(TestCase):

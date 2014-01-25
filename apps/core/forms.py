@@ -1,5 +1,6 @@
 from django import forms
-from apps.core.models import Board, BoardPosition, Issue, Transition
+from apps.core.models import Board, BoardPosition, Transition
+from apps.issues.models import Issue
 
 
 class BoardPositionForm(forms.ModelForm):

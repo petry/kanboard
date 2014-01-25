@@ -1,7 +1,8 @@
 from django.test import TestCase
 from model_mommy import mommy
 from apps.core.forms import BoardPositionForm
-from apps.core.models import Board, Step, Issue, BoardPosition, Transition
+from apps.core.models import Board, Step, BoardPosition, Transition
+from apps.issues.models import Issue
 
 
 class OnBoardFormTestCase(TestCase):

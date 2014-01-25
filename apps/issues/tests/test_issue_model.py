@@ -1,8 +1,9 @@
 from datetime import timedelta
+from django.db import models
 from django.test import TestCase
 from model_mommy import mommy
-import time
-from apps.core.models import Board, Step, Issue, BoardPosition, Transition
+from apps.core.models import Board, Step, BoardPosition, Transition
+from apps.issues.models import Issue
 
 
 class IssueModelTest(TestCase):
@@ -43,3 +44,17 @@ class IssueModelTest(TestCase):
             step=self.step2
         )
         self.assertIsInstance(self.issue.get_duration(), timedelta)
+
+
+class IssueTestCase(TestCase):
+    def test_should_have_all_fields_name(self):
+        self.assertEqual(['boardposition', 'description', u'id', 'name', 'transition'],
+                         Issue._meta.get_all_field_names())
+
+    def test_name_should_be_a_char_field(self):
+        member_field = Issue._meta.get_field_by_name('name')[0]
+        self.assertIsInstance(member_field, models.CharField)
+
+    def test_issue_instance_should_output_name(self):
+        instance = mommy.make(Issue)
+        self.assertEqual(unicode(instance), instance.name)

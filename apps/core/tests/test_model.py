@@ -2,21 +2,8 @@ from django.test import TestCase
 from django.db import models
 from model_mommy import mommy
 
-from apps.core.models import Issue, Board, Step, Transition
-
-
-class IssueTestCase(TestCase):
-    def test_should_have_all_fields_name(self):
-        self.assertEqual(['boardposition', 'description', u'id', 'name', 'transition'],
-                         Issue._meta.get_all_field_names())
-
-    def test_name_should_be_a_char_field(self):
-        member_field = Issue._meta.get_field_by_name('name')[0]
-        self.assertIsInstance(member_field, models.CharField)
-
-    def test_issue_instance_should_output_name(self):
-        instance = mommy.make(Issue)
-        self.assertEqual(unicode(instance), instance.name)
+from apps.core.models import Board, Step, Transition
+from apps.issues.models import Issue
 
 
 class StepTestCase(TestCase):

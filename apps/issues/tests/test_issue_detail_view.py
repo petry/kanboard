@@ -1,8 +1,8 @@
 from django.test import TestCase, RequestFactory
 from model_mommy import mommy
 from apps.core.forms import BoardPositionForm
-from apps.core.models import Issue
-from apps.core.views import IssueDetailView
+from apps.issues.models import Issue
+from apps.issues.views import IssueDetailView
 
 
 class IssueDetailDefaultTest(TestCase):
@@ -29,7 +29,7 @@ class IssueDetailViewTest(IssueDetailDefaultTest):
 
     def test_should_use_the_correctly_template(self):
         self.response = IssueDetailView.as_view()(self.request, pk=self.issue.pk)
-        self.assertIn('core/issue_detail.html', self.response.template_name)
+        self.assertIn('issues/issue_detail.html', self.response.template_name)
 
 
 class IssueDetailAjaxViewTest(IssueDetailDefaultTest):
@@ -41,6 +41,6 @@ class IssueDetailAjaxViewTest(IssueDetailDefaultTest):
 
     def test_should_use_the_correctly_template(self):
         self.response = IssueDetailView.as_view()(self.request, pk=self.issue.pk)
-        self.assertIn('core/issue_detail_ajax.html', self.response.template_name)
+        self.assertIn('issues/issue_detail_ajax.html', self.response.template_name)
 
 

@@ -2,12 +2,13 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase, RequestFactory
 from model_mommy import mommy
 from lxml import html
-from apps.core.models import Board, Step, Issue, BoardPosition
+from apps.core.models import Board, Step, BoardPosition
 from apps.core.views import BoardDetailView
+from apps.issues.models import Issue
 
 
 class BoardDetailViewTest(TestCase):
-    urls = 'apps.core.urls'
+    urls = 'kanboard.urls'
 
     def setUp(self):
         self.factory = RequestFactory()
