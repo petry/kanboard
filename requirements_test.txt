@@ -1,6 +1,6 @@
-pytest-django==2.4
+pytest-django==2.6
 pytest-cov==1.6
-coveralls==0.4
+coveralls==0.4.1
 model-mommy==1.2
 lxml==3.2.5
 cssselect==0.9.1
