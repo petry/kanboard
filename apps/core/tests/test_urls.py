@@ -16,3 +16,8 @@ class CoreUrlsTest(UrlsTest):
     def test_board_list_url(self):
         self.assertUrlExist('board-list')
 
+    def test_login_url(self):
+        self.assertUrlExist('core-login')
+
+    def test_logout_url(self):
+        self.assertUrlExist('core-logout')
