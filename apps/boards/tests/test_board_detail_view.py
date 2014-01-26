@@ -6,7 +6,7 @@ from apps.issues.models import Issue
 
 
 class BoardDetailViewTest(TestCase):
-    urls = 'apps.boards.urls'
+    urls = 'kanboard.urls'
 
     def setUp(self):
         self.factory = RequestFactory()

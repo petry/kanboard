@@ -8,7 +8,7 @@ from apps.issues.views import IssueDetailView
 
 
 class IssueDetailViewTest(TestCase):
-    urls = 'apps.issues.urls'
+    urls = 'kanboard.urls'
 
     def setUp(self):
         self.factory = RequestFactory()
