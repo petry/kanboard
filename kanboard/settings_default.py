@@ -27,6 +27,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'mathfilters',
     'south',
+    'apps.teams',
     'apps.core',
     'apps.issues',
     'apps.boards',
