@@ -2,7 +2,7 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase, RequestFactory
 from mock import patch
 from model_mommy import mommy
-from apps.core.models import Board, Step, BoardPosition
+from apps.boards.models import Board, Step, BoardPosition
 from apps.issues.models import Issue
 from apps.issues.views import IssueAdvanceView
 
@@ -34,7 +34,7 @@ class BoardListViewTest(TestCase):
         response = IssueAdvanceView.as_view()(self.request, pk=self.issue.pk)
         self.assertEqual(response.status_code, 302)
 
-    @patch('apps.core.models.BoardPosition.go')
+    @patch('apps.boards.models.BoardPosition.go')
     def test_should_advance_position(self, mock):
         IssueAdvanceView.as_view()(self.request, pk=self.issue.pk)
         self.assertTrue(mock.called)

@@ -1,8 +1,8 @@
 from django.test import TestCase
 from django.db import models
 from model_mommy import mommy
+from apps.boards.models import Board, Step, Transition
 
-from apps.core.models import Board, Step, Transition
 from apps.issues.models import Issue
 
 

@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.views.generic import ListView, DetailView
-from apps.core.models import Board
+from apps.boards.models import Board
 from apps.issues.models import Issue
 
 
@@ -29,7 +29,7 @@ class BoardDetailView(DetailView):
 
 class BoardReportView(ListView):
     model = Issue
-    template_name = 'core/board_report.html'
+    template_name = 'boards/board_report.html'
     board = None
 
     def get(self, request, *args, **kwargs):

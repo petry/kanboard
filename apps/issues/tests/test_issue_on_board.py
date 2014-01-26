@@ -2,7 +2,7 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase, RequestFactory
 from mock import patch
 from model_mommy import mommy
-from apps.core.models import Board, Step, BoardPosition
+from apps.boards.models import Board, Step, BoardPosition
 from apps.issues.models import Issue
 from apps.issues.views import IssueOnBoardView
 

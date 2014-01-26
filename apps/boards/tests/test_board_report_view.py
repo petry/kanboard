@@ -1,12 +1,12 @@
 from django.test import TestCase, RequestFactory
 from model_mommy import mommy
+from apps.boards.models import Board, BoardPosition
 from apps.boards.views import BoardReportView
-from apps.core.models import Board, BoardPosition
 from apps.issues.models import Issue
 
 
 class BoardReportViewTest(TestCase):
-    urls = 'apps.core.urls'
+    urls = 'apps.boards.urls'
 
     def setUp(self):
         self.factory = RequestFactory()
@@ -15,7 +15,7 @@ class BoardReportViewTest(TestCase):
 
     def test_should_use_the_correctly_template(self):
         self.response = BoardReportView.as_view()(self.request, pk=self.board.pk)
-        self.assertIn('core/board_report.html', self.response.template_name)
+        self.assertIn('boards/board_report.html', self.response.template_name)
 
     def test_should_have_board_on_context(self):
         self.response = BoardReportView.as_view()(self.request, pk=self.board.pk)

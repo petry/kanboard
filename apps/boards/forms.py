@@ -1,5 +1,5 @@
 from django import forms
-from apps.core.models import Board, BoardPosition, Transition
+from apps.boards.models import Board, BoardPosition, Transition
 from apps.issues.models import Issue
 
 __author__ = 'petry'

@@ -2,7 +2,7 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from django.test import TestCase
 from model_mommy import mommy
-from apps.core.models import Board, Step
+from apps.boards.models import Board, Step
 
 
 class ModelTestCase(TestCase):

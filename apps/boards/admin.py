@@ -1,5 +1,5 @@
 from django.contrib import admin
-from apps.core.models import Step, BoardPosition, Transition, Board
+from apps.boards.models import Board, Step, BoardPosition, Transition
 
 
 class StepInline(admin.TabularInline):

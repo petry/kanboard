@@ -1,12 +1,12 @@
 from django.test import TestCase, RequestFactory
 from model_mommy import mommy
+from apps.boards.models import Board, Step
 from apps.boards.views import BoardDetailView
-from apps.core.models import Board, Step
 from apps.issues.models import Issue
 
 
 class BoardDetailViewTest(TestCase):
-    urls = 'apps.core.urls'
+    urls = 'apps.boards.urls'
 
     def setUp(self):
         self.factory = RequestFactory()
@@ -16,7 +16,7 @@ class BoardDetailViewTest(TestCase):
 
     def test_should_use_the_correctly_template(self):
         self.response = BoardDetailView.as_view()(self.request, pk=self.board.pk)
-        self.assertIn('core/board_detail.html', self.response.template_name)
+        self.assertIn('boards/board_detail.html', self.response.template_name)
 
     def test_should_not_have_panel_size_class_on_context_if_board_doesnt_have_a_step(self):
         mommy.make(Step, board=self.board)

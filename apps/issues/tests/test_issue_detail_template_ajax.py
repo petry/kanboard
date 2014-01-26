@@ -2,7 +2,7 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase, RequestFactory
 from model_mommy import mommy
 from lxml import html
-from apps.core.models import Step, BoardPosition
+from apps.boards.models import Step, BoardPosition
 from apps.issues.models import Issue
 from apps.issues.views import IssueDetailView
 

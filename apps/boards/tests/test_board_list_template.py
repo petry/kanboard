@@ -2,8 +2,8 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase, RequestFactory
 from model_mommy import mommy
 from lxml import html
+from apps.boards.models import Board
 from apps.boards.views import BoardListView
-from apps.core.models import Board
 from apps.issues.models import Issue
 
 

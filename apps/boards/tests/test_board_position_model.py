@@ -1,7 +1,7 @@
 from django.db import models
 from django.test import TestCase
 from model_mommy import mommy
-from apps.core.models import BoardPosition, Board, Step, Transition
+from apps.boards.models import Board, Step, BoardPosition, Transition
 from apps.issues.models import Issue
 
 
