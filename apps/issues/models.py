@@ -35,6 +35,6 @@ class Issue(models.Model):
         return self.get_last_transition().date - self.get_first_transition().date
 
     def get_expected_date(self, time_delta):
-        return self.get_first_transition() + time_delta
+        return self.get_first_transition().date + time_delta
 
 

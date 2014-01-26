@@ -1,10 +1,12 @@
 from datetime import timedelta
+import datetime
 from django.db import models
 from django.test import TestCase
+from mock import patch
 from model_mommy import mommy
 from apps.boards.models import Board, Step, BoardPosition, Transition
 from apps.issues.models import Issue
-
+from django.utils import timezone
 
 class IssueModelTest(TestCase):
 
@@ -58,3 +60,59 @@ class IssueTestCase(TestCase):
     def test_issue_instance_should_output_name(self):
         instance = mommy.make(Issue)
         self.assertEqual(unicode(instance), instance.name)
+
+
+class IssueTransitionTest(TestCase):
+
+
+    def setUp(self):
+        super(IssueTransitionTest, self).setUp()
+        self.issue = mommy.make(Issue)
+        self.board = mommy.make(Board)
+        self.step3 = Step.objects.create(board=self.board, name='step 3')
+        self.step2 = Step.objects.create(board=self.board, name='step 2',
+                                         next=self.step3)
+        self.step1 = Step.objects.create(board=self.board, name='step 1',
+                                         next=self.step2, initial=True)
+
+        self.first_transition = Transition.objects.create(
+            issue=self.issue,
+            step=self.step1
+        )
+        self.second_transition = Transition.objects.create(
+            issue=self.issue,
+            step=self.step2
+        )
+        self.last_transition = Transition.objects.create(
+            issue=self.issue,
+            step=self.step3
+        )
+
+    def test_should_get_first_transition(self):
+        self.assertEqual(self.issue.get_first_transition(), self.first_transition)
+
+    def test_should_get_last_transition(self):
+        self.assertEqual(self.issue.get_last_transition(), self.last_transition)
+
+    def test_should_return_none_id_doesnt_have_last_trantision(self):
+        self.last_transition.delete()
+        self.assertIsNone(self.issue.get_last_transition())
+
+    def test_should_return_get_expected_date(self):
+        self.first_transition.date = datetime.datetime(2014, 1, 1)
+        self.first_transition.save()
+        time_delta = timedelta(days=5)
+
+        self.assertEqual(self.issue.get_expected_date(time_delta),
+                         datetime.datetime(2014, 1, 6, tzinfo=timezone.utc))
+
+    def test_should_return_duration(self):
+        self.first_transition.date = datetime.datetime(2014, 1, 1)
+        self.first_transition.save()
+        self.last_transition.date = datetime.datetime(2014, 1, 5)
+        self.last_transition.save()
+        self.assertEqual(self.issue.get_duration(), timedelta(4))
+
+    def test_shoruld_not_return_duration_if_issoen_downt_have_last_transition(self):
+        self.last_transition.delete()
+        self.assertIsNone(self.issue.get_duration())

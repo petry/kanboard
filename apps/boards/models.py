@@ -56,7 +56,7 @@ class BoardPosition(models.Model):
 class Transition(models.Model):
     issue = models.ForeignKey(Issue)
     step = models.ForeignKey(Step)
-    date = models.DateTimeField(auto_now=True)
+    date = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
         return "#{0} in {1} on {2}".format(self.issue.id, self.step.name, self.date)
