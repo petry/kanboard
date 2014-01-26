@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from apps.core.admin import PositionInline, TransitionInline
+from apps.boards.admin import PositionInline, TransitionInline
 from apps.issues.models import Issue
 
 

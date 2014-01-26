@@ -1,6 +1,6 @@
 from django.test import TestCase, RequestFactory
 from model_mommy import mommy
-from apps.core.forms import BoardPositionForm
+from apps.boards.forms import BoardPositionForm
 from apps.issues.models import Issue
 from apps.issues.views import IssueDetailView
 

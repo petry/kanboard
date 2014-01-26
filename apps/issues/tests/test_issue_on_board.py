@@ -29,7 +29,7 @@ class IssueOnBoardViewTest(TestCase):
         response = IssueOnBoardView.as_view()(self.request, pk=self.issue.pk)
         self.assertEqual(response.status_code, 302)
 
-    @patch('apps.core.forms.BoardPositionForm.on_board')
+    @patch('apps.boards.forms.BoardPositionForm.on_board')
     def test_on_board_function_must_be_called(self, mock):
         mommy.make(BoardPosition, board=self.board, issue=self.issue)
         response = IssueOnBoardView.as_view()(self.request, pk=self.issue.pk)

@@ -3,7 +3,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.views.generic import DetailView, RedirectView
-from apps.core.forms import BoardPositionForm
+from apps.boards.forms import BoardPositionForm
 from apps.issues.models import Issue
 
 

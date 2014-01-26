@@ -2,6 +2,8 @@ from django import forms
 from apps.core.models import Board, BoardPosition, Transition
 from apps.issues.models import Issue
 
+__author__ = 'petry'
+
 
 class BoardPositionForm(forms.ModelForm):
     board = forms.ModelChoiceField(

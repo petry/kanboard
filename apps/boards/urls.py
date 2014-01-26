@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, url
-from apps.boards.views import BoardListView, BoardDetailView, BoardReportView
+from apps.boards.views import BoardDetailView, BoardReportView
 
 urlpatterns = patterns('',
     url(r'^(?P<pk>\d+)/$', BoardDetailView.as_view(), name='board-detail'),
