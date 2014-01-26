@@ -1,12 +1,13 @@
-from datetime import timedelta
 import datetime
+from model_mommy import mommy
+
 from django.db import models
 from django.test import TestCase
-from mock import patch
-from model_mommy import mommy
+from django.utils import timezone
+
 from apps.boards.models import Board, Step, BoardPosition, Transition
 from apps.issues.models import Issue
-from django.utils import timezone
+
 
 class IssueModelTest(TestCase):
 
@@ -45,7 +46,7 @@ class IssueModelTest(TestCase):
             issue=self.issue,
             step=self.step2
         )
-        self.assertIsInstance(self.issue.get_duration(), timedelta)
+        self.assertIsInstance(self.issue.get_duration(), datetime.timedelta)
 
 
 class IssueTestCase(TestCase):
@@ -63,7 +64,6 @@ class IssueTestCase(TestCase):
 
 
 class IssueTransitionTest(TestCase):
-
 
     def setUp(self):
         super(IssueTransitionTest, self).setUp()
@@ -101,7 +101,7 @@ class IssueTransitionTest(TestCase):
     def test_should_return_get_expected_date(self):
         self.first_transition.date = datetime.datetime(2014, 1, 1)
         self.first_transition.save()
-        time_delta = timedelta(days=5)
+        time_delta = datetime.timedelta(days=5)
 
         self.assertEqual(self.issue.get_expected_date(time_delta),
                          datetime.datetime(2014, 1, 6, tzinfo=timezone.utc))
@@ -111,7 +111,7 @@ class IssueTransitionTest(TestCase):
         self.first_transition.save()
         self.last_transition.date = datetime.datetime(2014, 1, 5)
         self.last_transition.save()
-        self.assertEqual(self.issue.get_duration(), timedelta(4))
+        self.assertEqual(self.issue.get_duration(), datetime.timedelta(4))
 
     def test_shoruld_not_return_duration_if_issoen_downt_have_last_transition(self):
         self.last_transition.delete()

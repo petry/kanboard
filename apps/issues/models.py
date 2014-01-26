@@ -5,6 +5,7 @@ from django.db import models
 from django.db.models.query import QuerySet
 from apps.core.managers import QuerySetManager
 
+
 class IssueQuerySet(QuerySet):
     def duration_avg(self):
         durations = [i.get_duration() for i in self if i.get_duration()]
@@ -36,5 +37,3 @@ class Issue(models.Model):
 
     def get_expected_date(self, time_delta):
         return self.get_first_transition().date + time_delta
-
-
