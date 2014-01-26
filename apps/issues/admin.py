@@ -1,8 +1,15 @@
 from django.contrib import admin
-
-# Register your models here.
-from apps.boards.admin import PositionInline, TransitionInline
+from apps.boards.models import BoardPosition, Transition
 from apps.issues.models import Issue
+
+
+class PositionInline(admin.TabularInline):
+    model = BoardPosition
+
+
+class TransitionInline(admin.TabularInline):
+    model = Transition
+    extra = 0
 
 
 class IssueAdmin(admin.ModelAdmin):
@@ -11,5 +18,6 @@ class IssueAdmin(admin.ModelAdmin):
         PositionInline,
         TransitionInline
     ]
+
 
 admin.site.register(Issue, IssueAdmin)

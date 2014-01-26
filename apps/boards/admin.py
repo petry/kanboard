@@ -1,18 +1,9 @@
 from django.contrib import admin
-from apps.boards.models import Board, Step, BoardPosition, Transition
+from apps.boards.models import Board, Step, Transition
 
 
 class StepInline(admin.TabularInline):
     model = Step
-    extra = 0
-
-
-class PositionInline(admin.TabularInline):
-    model = BoardPosition
-
-
-class TransitionInline(admin.TabularInline):
-    model = Transition
     extra = 0
 
 
