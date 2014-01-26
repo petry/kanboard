@@ -1,4 +1,5 @@
 import datetime
+from django.db.models.related import RelatedObject
 from model_mommy import mommy
 
 from django.db import models
@@ -8,7 +9,7 @@ from apps.teams.models import Team
 
 class TeamTestCase(TestCase):
     def test_should_have_all_fields_name(self):
-        self.assertEqual([u'id', 'name', 'users'],
+        self.assertEqual(['board', u'id', 'name', 'users'],
                          Team._meta.get_all_field_names())
 
     def test_name_should_be_a_char_field(self):

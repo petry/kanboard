@@ -1,12 +1,12 @@
 from django.core.urlresolvers import reverse
 from django.db import models
-
-# Create your models here.
 from apps.issues.models import Issue
+from apps.teams.models import Team
 
 
 class Board(models.Model):
     name = models.CharField(max_length=255)
+    team = models.ForeignKey(Team, null=True, blank=True)
 
     def __unicode__(self):
         return self.name

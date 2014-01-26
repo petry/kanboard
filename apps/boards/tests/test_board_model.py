@@ -3,16 +3,22 @@ from django.db import models
 from django.test import TestCase
 from model_mommy import mommy
 from apps.boards.models import Board, Step
+from apps.teams.models import Team
 
 
 class ModelTestCase(TestCase):
     def test_should_have_all_fields_name(self):
-        self.assertEqual(['boardposition', u'id', 'name', 'step'],
+        self.assertEqual(['boardposition', u'id', 'name', 'step', 'team'],
                          Board._meta.get_all_field_names())
 
     def test_name_should_be_a_char_field(self):
-        member_field = Board._meta.get_field_by_name('name')[0]
-        self.assertIsInstance(member_field, models.CharField)
+        field = Board._meta.get_field_by_name('name')[0]
+        self.assertIsInstance(field, models.CharField)
+
+    def test_team_should_be_a_foreign_key_to_team_model(self):
+        field = Board._meta.get_field_by_name('team')[0]
+        self.assertIsInstance(field, models.ForeignKey)
+        self.assertEqual(field.related.parent_model, Team)
 
     def test_board_instance_should_output_name(self):
         instance = mommy.make(Board)
