@@ -3,7 +3,7 @@ from django.test import TestCase, RequestFactory
 from model_mommy import mommy
 from lxml import html
 from apps.boards.models import Board
-from apps.boards.tests.test_board_list_view import LoggedTestCase
+from apps.core.tests.utils import LoggedTestCase
 from apps.core.views import IndexView
 
 

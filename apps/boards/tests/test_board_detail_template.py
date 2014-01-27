@@ -1,23 +1,23 @@
 from django.core.urlresolvers import reverse
-from django.test import TestCase, RequestFactory
 from model_mommy import mommy
 from lxml import html
 from apps.boards.models import Board, Step, BoardPosition
 from apps.boards.views import BoardDetailView
+from apps.core.tests.utils import LoggedTestCase
 from apps.issues.models import Issue
 
 
-class BoardDetailViewTest(TestCase):
+class BoardDetailViewTest(LoggedTestCase):
     urls = 'kanboard.urls'
 
     def setUp(self):
-        self.factory = RequestFactory()
+        super(BoardDetailViewTest, self).setUp()
         self.board = mommy.make(Board)
-        self.request = self.factory.get('/boards/1/')
 
         self.step3 = mommy.make(Step, board=self.board)
         self.step2 = mommy.make(Step, board=self.board, next=self.step3)
         self.step1 = mommy.make(Step, board=self.board, next=self.step2, initial=True)
+
         response = BoardDetailView.as_view()(self.request, pk=self.board.pk)
         self.dom = html.fromstring(response.rendered_content)
 

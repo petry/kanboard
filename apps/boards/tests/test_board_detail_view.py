@@ -2,17 +2,17 @@ from django.test import TestCase, RequestFactory
 from model_mommy import mommy
 from apps.boards.models import Board, Step
 from apps.boards.views import BoardDetailView
+from apps.core.tests.utils import LoggedTestCase
 from apps.issues.models import Issue
 
 
-class BoardDetailViewTest(TestCase):
+class BoardDetailViewTest(LoggedTestCase):
     urls = 'kanboard.urls'
 
     def setUp(self):
-        self.factory = RequestFactory()
+        super(BoardDetailViewTest, self).setUp()
         self.board = mommy.make(Board)
         self.issue = mommy.make(Issue)
-        self.request = self.factory.get('/boards/1/')
 
     def test_should_use_the_correctly_template(self):
         self.response = BoardDetailView.as_view()(self.request, pk=self.board.pk)
