@@ -8,6 +8,7 @@ __author__ = 'petry'
 
 
 class LoggedTestCase(TestCase):
+    ajax = False
 
     def setUp(self):
         super(LoggedTestCase, self).setUp()
@@ -19,7 +20,11 @@ class LoggedTestCase(TestCase):
         )
         self.factory = RequestFactory()
         self.board = mommy.make(Board)
-        self.request = self.factory.get('/some-url/')
+        if self.ajax:
+            self.request = self.factory.get('/some-url/', HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        else:
+            self.request = self.factory.get('/some-url/')
+
         self.request.user = user
         self.request.session = {}
 

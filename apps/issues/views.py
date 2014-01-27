@@ -1,13 +1,11 @@
 from django.core.urlresolvers import reverse
-from django.shortcuts import render
-
-# Create your views here.
 from django.views.generic import DetailView, RedirectView
 from apps.boards.forms import BoardPositionForm
+from apps.core.mixins import ProtectedViewMixin
 from apps.issues.models import Issue
 
 
-class IssueDetailView(DetailView):
+class IssueDetailView(ProtectedViewMixin, DetailView):
     model = Issue
 
     def get_context_data(self, **kwargs):
