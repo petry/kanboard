@@ -9,9 +9,12 @@ from apps.issues.models import Issue
 class BoardDetailViewTest(LoggedTestCase):
     urls = 'kanboard.urls'
 
+    def get_view(self):
+        return BoardListView.as_view()
+
     def setUp(self):
         super(BoardDetailViewTest, self).setUp()
-        response = BoardListView.as_view()(self.request, pk=self.board.pk)
+        response = self.view(self.request, pk=self.board.pk)
         self.dom = html.fromstring(response.rendered_content)
 
     def test_should_have_a_list_of_boards(self):
@@ -24,7 +27,7 @@ class BoardDetailViewTest(LoggedTestCase):
 
     def test_issue_should_have_icebox_panel_when_has_issue_without_board(self):
         mommy.make(Issue)
-        response = BoardListView.as_view()(self.request, pk=self.board.pk)
+        response = self.view(self.request, pk=self.board.pk)
         dom = html.fromstring(response.rendered_content)
 
         title = dom.cssselect('.icebox .panel h3.panel-title')[0]
@@ -32,8 +35,11 @@ class BoardDetailViewTest(LoggedTestCase):
 
     def test_issue_should_be_on_icebox_when_it_any_other_board(self):
         issue = mommy.make(Issue)
-        response = BoardListView.as_view()(self.request, pk=self.board.pk)
+        response = self.view(self.request, pk=self.board.pk)
         dom = html.fromstring(response.rendered_content)
         panel = dom.cssselect('.icebox .panel .panel-body')[0]
         title = panel.cssselect('.issue-item.badge')[0]
         self.assertEqual(title.text.strip(), "#{0} {1}".format(issue.id, issue.name))
+
+    def test_redirect_if_not_logged(self):
+        self.assertRedirectIfNotLogged()

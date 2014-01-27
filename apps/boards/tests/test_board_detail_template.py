@@ -10,6 +10,9 @@ from apps.issues.models import Issue
 class BoardDetailViewTest(LoggedTestCase):
     urls = 'kanboard.urls'
 
+    def get_view(self):
+        return BoardDetailView.as_view()
+
     def setUp(self):
         super(BoardDetailViewTest, self).setUp()
         self.board = mommy.make(Board)
@@ -18,7 +21,7 @@ class BoardDetailViewTest(LoggedTestCase):
         self.step2 = mommy.make(Step, board=self.board, next=self.step3)
         self.step1 = mommy.make(Step, board=self.board, next=self.step2, initial=True)
 
-        response = BoardDetailView.as_view()(self.request, pk=self.board.pk)
+        response = self.get_view()(self.request, pk=self.board.pk)
         self.dom = html.fromstring(response.rendered_content)
 
     def test_should_have_report_link(self):
@@ -35,7 +38,7 @@ class BoardDetailViewTest(LoggedTestCase):
     def test_should_have_an_issue_on_step(self):
         issue = mommy.make(Issue)
         mommy.make(BoardPosition, issue=issue, status=self.step2)
-        response = BoardDetailView.as_view()(self.request, pk=self.board.pk)
+        response = self.get_view()(self.request, pk=self.board.pk)
         dom = html.fromstring(response.rendered_content)
         step2 = dom.cssselect('.steps .panel')[1]
 
@@ -46,8 +49,11 @@ class BoardDetailViewTest(LoggedTestCase):
     def test_should_not_have_an_issue_on_step_if_flag_id_false(self):
         issue = mommy.make(Issue)
         mommy.make(BoardPosition, issue=issue, status=self.step2, show=False)
-        response = BoardDetailView.as_view()(self.request, pk=self.board.pk)
+        response = self.get_view()(self.request, pk=self.board.pk)
         dom = html.fromstring(response.rendered_content)
         step2 = dom.cssselect('.steps .panel')[1]
 
         self.assertEqual(0, len(step2.cssselect('.issue-item.badge')))
+
+    def test_redirect_if_not_logged(self):
+        self.assertRedirectIfNotLogged()

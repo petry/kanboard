@@ -23,8 +23,11 @@ class NavbarTestCase(TestCase):
 class LoggedNavbarTestCase(LoggedTestCase):
     urls = 'kanboard.urls'
 
+    def get_view(self):
+        return IndexView.as_view()
+
     def test_should_have_a_logout_link_when_logged(self):
-        response = IndexView.as_view()(self.request, pk=self.board.pk)
+        response = self.view(self.request, pk=self.board.pk)
         self.dom = html.fromstring(response.rendered_content)
         login = self.dom.cssselect('#user-menu a')[1]
         self.assertIn('href', login.attrib)

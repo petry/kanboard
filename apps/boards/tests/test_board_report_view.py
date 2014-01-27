@@ -2,23 +2,26 @@ from django.test import TestCase, RequestFactory
 from model_mommy import mommy
 from apps.boards.models import Board, BoardPosition
 from apps.boards.views import BoardReportView
+from apps.core.tests.utils import LoggedTestCase
 from apps.issues.models import Issue
 
 
-class BoardReportViewTest(TestCase):
+class BoardReportViewTest(LoggedTestCase):
     urls = 'kanboard.urls'
 
     def setUp(self):
-        self.factory = RequestFactory()
+        super(BoardReportViewTest, self).setUp()
         self.board = mommy.make(Board)
-        self.request = self.factory.get('/boards/1/report')
+
+    def get_view(self):
+        return BoardReportView.as_view()
 
     def test_should_use_the_correctly_template(self):
-        self.response = BoardReportView.as_view()(self.request, pk=self.board.pk)
+        self.response = self.view(self.request, pk=self.board.pk)
         self.assertIn('boards/board_report.html', self.response.template_name)
 
     def test_should_have_board_on_context(self):
-        self.response = BoardReportView.as_view()(self.request, pk=self.board.pk)
+        self.response = self.view(self.request, pk=self.board.pk)
         self.assertTrue(self.response.context_data.has_key('board'))
         self.assertEqual(self.response.context_data['board'], self.board)
 
@@ -34,3 +37,6 @@ class BoardReportViewTest(TestCase):
         issue_in_other_board = mommy.make(Issue, boardposition__board=self.board)
         self.response = BoardReportView.as_view()(self.request, pk=self.board.pk)
         self.assertNotIn(issue_in_other_board, self.response.context_data['object_list'])
+
+    def test_redirect_if_not_logged(self):
+        self.assertRedirectIfNotLogged()

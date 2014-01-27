@@ -5,9 +5,12 @@ from apps.issues.models import Issue
 
 class BoardListViewTest(LoggedTestCase):
 
+    def get_view(self):
+        return BoardListView.as_view()
+
     def setUp(self):
         super(BoardListViewTest, self).setUp()
-        self.response = BoardListView.as_view()(self.request, pk=self.board.pk)
+        self.response = self.view(self.request, pk=self.board.pk)
 
     def test_should_use_the_correctly_template(self):
         self.assertIn('boards/board_list.html', self.response.template_name)
@@ -17,3 +20,6 @@ class BoardListViewTest(LoggedTestCase):
         self.assertQuerysetEqual(self.response.context_data['icebox'],
                                  Issue.objects.filter(boardposition=None),
                                  lambda obj:obj)
+
+    def test_redirect_if_not_logged(self):
+        self.assertRedirectIfNotLogged()

@@ -35,7 +35,7 @@ class BoardDetailView(ProtectedViewMixin, DetailView):
         return context
 
 
-class BoardReportView(ListView):
+class BoardReportView(ProtectedViewMixin, ListView):
     model = Issue
     template_name = 'boards/board_report.html'
     board = None
