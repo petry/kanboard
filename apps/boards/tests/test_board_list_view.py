@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.test import TestCase, RequestFactory
 from model_mommy import mommy
 from apps.boards.models import Board
@@ -5,12 +6,25 @@ from apps.boards.views import BoardListView
 from apps.issues.models import Issue
 
 
-class BoardListViewTest(TestCase):
-
+class LoggedTestCase(TestCase):
     def setUp(self):
+        super(LoggedTestCase, self).setUp()
+        user = User.objects.create_superuser(
+            username='test_user',
+            email='test_email',
+            password='test'
+        )
         self.factory = RequestFactory()
         self.board = mommy.make(Board)
         self.request = self.factory.get('/')
+        self.request.user = user
+        self.request.session = {}
+
+
+class BoardListViewTest(LoggedTestCase):
+
+    def setUp(self):
+        super(BoardListViewTest, self).setUp()
         self.response = BoardListView.as_view()(self.request, pk=self.board.pk)
 
     def test_should_use_the_correctly_template(self):

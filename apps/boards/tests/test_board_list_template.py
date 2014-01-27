@@ -3,18 +3,16 @@ from django.test import TestCase, RequestFactory
 from model_mommy import mommy
 from lxml import html
 from apps.boards.models import Board
+from apps.boards.tests.test_board_list_view import LoggedTestCase
 from apps.boards.views import BoardListView
 from apps.issues.models import Issue
 
 
-class BoardDetailViewTest(TestCase):
+class BoardDetailViewTest(LoggedTestCase):
     urls = 'kanboard.urls'
 
     def setUp(self):
-        self.factory = RequestFactory()
-        self.board = mommy.make(Board)
-        self.request = self.factory.get('/')
-
+        super(BoardDetailViewTest, self).setUp()
         response = BoardListView.as_view()(self.request, pk=self.board.pk)
         self.dom = html.fromstring(response.rendered_content)
 
