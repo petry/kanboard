@@ -16,7 +16,7 @@ class IssueDetailView(ProtectedViewMixin, DetailView):
         return context
 
 
-class IssueAdvanceView(RedirectView):
+class IssueAdvanceView(ProtectedViewMixin, RedirectView):
     permanent = False
 
     def get_redirect_url(self, *args, **kwargs):
@@ -25,7 +25,7 @@ class IssueAdvanceView(RedirectView):
         return reverse('board-detail', kwargs={'pk': issue.boardposition.board.id})
 
 
-class IssueOnBoardView(RedirectView):
+class IssueOnBoardView(ProtectedViewMixin, RedirectView):
     permanent = False
 
     def post(self, request, *args, **kwargs):
