@@ -1,9 +1,11 @@
 from django.core.urlresolvers import reverse
 from model_mommy import mommy
 from lxml import html
+from apps.boards.models import Board
 from apps.boards.views import BoardListView
 from apps.core.tests.utils import LoggedTestCase
 from apps.issues.models import Issue
+from apps.teams.models import Team
 
 
 class BoardDetailViewTest(LoggedTestCase):
@@ -14,6 +16,11 @@ class BoardDetailViewTest(LoggedTestCase):
 
     def setUp(self):
         super(BoardDetailViewTest, self).setUp()
+
+        self.team = Team.objects.create(name='test-team')
+        self.team.users.add(self.user)
+        self.board = mommy.make(Board, team=self.team)
+
         response = self.view(self.request, pk=self.board.pk)
         self.dom = html.fromstring(response.rendered_content)
 

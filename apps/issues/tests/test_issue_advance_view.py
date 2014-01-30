@@ -13,7 +13,7 @@ class IssueAdvanceViewTest(LoggedTestCase):
         return IssueAdvanceView.as_view()
 
     def setUp(self):
-        super(BoardListViewTest, self).setUp()
+        super(IssueAdvanceViewTest, self).setUp()
         self.board = mommy.make(Board)
         self.step2 = Step.objects.create(board=self.board, name='step 2')
         self.step1 = Step.objects.create(board=self.board, name='step 1',

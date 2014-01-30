@@ -1,4 +1,5 @@
 # Create your views here.
+from django.core.exceptions import PermissionDenied
 from django.views.generic import ListView, DetailView
 from apps.boards.models import Board
 from apps.core.mixins import ProtectedViewMixin
@@ -19,6 +20,12 @@ class BoardListView(ProtectedViewMixin, ListView):
 
 class BoardDetailView(ProtectedViewMixin, DetailView):
     model = Board
+
+    def get_object(self, queryset=None):
+        board =  super(BoardDetailView, self).get_object(queryset)
+        if board.team and self.request.user in board.team.users.all():
+            return board
+        raise PermissionDenied()
 
     def get_context_data(self, **kwargs):
         context = super(BoardDetailView, self).get_context_data(**kwargs)

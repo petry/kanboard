@@ -5,6 +5,7 @@ from apps.boards.models import Board, Step, BoardPosition
 from apps.boards.views import BoardDetailView
 from apps.core.tests.utils import LoggedTestCase
 from apps.issues.models import Issue
+from apps.teams.models import Team
 
 
 class BoardDetailViewTest(LoggedTestCase):
@@ -15,7 +16,10 @@ class BoardDetailViewTest(LoggedTestCase):
 
     def setUp(self):
         super(BoardDetailViewTest, self).setUp()
-        self.board = mommy.make(Board)
+
+        self.team = Team.objects.create(name='test-team')
+        self.team.users.add(self.user)
+        self.board = mommy.make(Board, team=self.team)
 
         self.step3 = mommy.make(Step, board=self.board)
         self.step2 = mommy.make(Step, board=self.board, next=self.step3)
