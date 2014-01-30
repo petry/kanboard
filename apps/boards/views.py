@@ -22,7 +22,7 @@ class BoardDetailView(ProtectedViewMixin, DetailView):
     model = Board
 
     def get_object(self, queryset=None):
-        board =  super(BoardDetailView, self).get_object(queryset)
+        board = super(BoardDetailView, self).get_object(queryset)
         if board.team and self.request.user in board.team.users.all():
             return board
         raise PermissionDenied()
@@ -42,6 +42,10 @@ class BoardReportView(ProtectedViewMixin, ListView):
     board = None
 
     def get(self, request, *args, **kwargs):
+        self.board = Board.objects.get(id=kwargs['pk'])
+        if not self.board.team or self.request.user not in self.board.team.users.all():
+            raise PermissionDenied()
+
         self.queryset = Issue.objects.filter(boardposition__board=kwargs['pk'])
         self.board = Board.objects.get(id=kwargs['pk'])
         return super(BoardReportView, self).get(request, *args, **kwargs)

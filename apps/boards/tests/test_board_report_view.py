@@ -4,6 +4,7 @@ from apps.boards.models import Board, BoardPosition
 from apps.boards.views import BoardReportView
 from apps.core.tests.utils import LoggedTestCase
 from apps.issues.models import Issue
+from apps.teams.models import Team
 
 
 class BoardReportViewTest(LoggedTestCase):
@@ -11,7 +12,10 @@ class BoardReportViewTest(LoggedTestCase):
 
     def setUp(self):
         super(BoardReportViewTest, self).setUp()
-        self.board = mommy.make(Board)
+        self.team = Team.objects.create(name='test-team')
+        self.team.users.add(self.user)
+        self.board = mommy.make(Board, team=self.team)
+
 
     def get_view(self):
         return BoardReportView.as_view()
