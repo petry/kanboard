@@ -7,7 +7,7 @@ from apps.issues.models import Issue
 from apps.issues.views import IssueAdvanceView
 
 
-class BoardListViewTest(LoggedTestCase):
+class IssueAdvanceViewTest(LoggedTestCase):
 
     def get_view(self):
         return IssueAdvanceView.as_view()

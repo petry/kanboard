@@ -13,7 +13,7 @@ class LoggedTestCase(TestCase):
     def setUp(self):
         super(LoggedTestCase, self).setUp()
         self.view = self.get_view()
-        user = User.objects.create_superuser(
+        self.user = User.objects.create_superuser(
             username='test_user',
             email='test_email',
             password='test'
@@ -25,7 +25,7 @@ class LoggedTestCase(TestCase):
         else:
             self.request = self.factory.get('/some-url/')
 
-        self.request.user = user
+        self.request.user = self.user
         self.request.session = {}
 
     def get_view(self):

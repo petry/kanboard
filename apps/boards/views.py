@@ -8,6 +8,9 @@ from apps.issues.models import Issue
 class BoardListView(ProtectedViewMixin, ListView):
     model = Board
 
+    def get_queryset(self):
+        return Board.objects.filter(team__users=self.request.user)
+
     def get_context_data(self, **kwargs):
         context = super(BoardListView, self).get_context_data(**kwargs)
         context['icebox'] = Issue.objects.filter(boardposition=None)

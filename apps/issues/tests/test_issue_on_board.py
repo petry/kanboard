@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
-from django.test import TestCase, RequestFactory
+from django.test import RequestFactory
 from mock import patch
 from model_mommy import mommy
 from apps.boards.models import Board, Step, BoardPosition
@@ -21,7 +21,6 @@ class IssueOnBoardViewTest(LoggedTestCase):
                                          next=self.step2, initial=True)
         self.issue = mommy.make(Issue)
 
-
         self.view = self.get_view()
         user = User.objects.create_superuser(
             username='test_user',
@@ -32,8 +31,6 @@ class IssueOnBoardViewTest(LoggedTestCase):
         self.request = self.factory.post('/some-url/', data={'board': self.board.id})
         self.request.user = user
         self.request.session = {}
-
-
 
     def test_should_redirect_to_board(self):
         response = self.view(self.request, pk=self.issue.pk)
@@ -47,7 +44,7 @@ class IssueOnBoardViewTest(LoggedTestCase):
     @patch('apps.boards.forms.BoardPositionForm.on_board')
     def test_on_board_function_must_be_called(self, mock):
         mommy.make(BoardPosition, board=self.board, issue=self.issue)
-        response = self.view(self.request, pk=self.issue.pk)
+        self.view(self.request, pk=self.issue.pk)
         self.assertTrue(mock.called)
 
     def test_redirect_if_not_logged(self):
