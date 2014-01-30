@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.core.urlresolvers import reverse
 from django.db import models
 from apps.issues.models import Issue
@@ -39,7 +40,7 @@ class Step(models.Model):
 class BoardPosition(models.Model):
     issue = models.OneToOneField(Issue)
     board = models.ForeignKey(Board)
-    status = models.ForeignKey('Step', auto_created=True)
+    status = models.ForeignKey('Step')
     show = models.BooleanField(default=True)
 
     def __unicode__(self):
@@ -56,7 +57,7 @@ class BoardPosition(models.Model):
 class Transition(models.Model):
     issue = models.ForeignKey(Issue)
     step = models.ForeignKey(Step)
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField(default=datetime.now())
 
     def __unicode__(self):
         return "#{0} in {1} on {2}".format(self.issue.id, self.step.name, self.date)
