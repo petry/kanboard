@@ -24,7 +24,7 @@
                         <div class="panel-body">
                             {% for position in step.boardposition_set.all %}
                                 {% if position.show %}
-                                {% include "issues/includes/issue_list_item.html" with object=position.issue only %}
+                                    {% include "issues/includes/issue_list_item.html" with object=position.issue only %}
                                 {% endif %}
                             {% endfor %}
 
@@ -33,7 +33,6 @@
                 </div>
             {% endfor %}
         </div>
-
 
 
     </div>

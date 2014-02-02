@@ -1,8 +1,23 @@
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.views.generic import DetailView, RedirectView
+from django.views.generic.edit import CreateView
 from apps.boards.forms import BoardPositionForm
 from apps.core.mixins import ProtectedViewMixin
+from apps.issues.forms import IssueForm
 from apps.issues.models import Issue
+
+
+class IssueCreateView(ProtectedViewMixin, CreateView):
+    model = Issue
+    form_class = IssueForm
+
+    def get(self, request, *args, **kwargs):
+        if self.request.is_ajax():
+            self.template_name_suffix = '_form_ajax'
+        return super(IssueCreateView, self).get(request, *args, **kwargs)
+
+    def get_success_url(self):
+        return reverse_lazy('board-list')
 
 
 class IssueDetailView(ProtectedViewMixin, DetailView):
@@ -12,7 +27,7 @@ class IssueDetailView(ProtectedViewMixin, DetailView):
         context = super(IssueDetailView, self).get_context_data(**kwargs)
         context['board_form'] = BoardPositionForm()
         if self.request.is_ajax():
-            self.template_name = 'issues/issue_detail_ajax.html'
+            self.template_name_suffix = '_detail_ajax'
         return context
 
 

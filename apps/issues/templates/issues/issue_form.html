@@ -1,0 +1,35 @@
+{% extends "grid_base.html" %}
+{% load static %}
+
+{% block container %}
+    <div class="container">
+        <div class="page-header">
+            <h1>Create Issue</h1>
+        </div>
+        <form action="{% url "issue-create" %}" method="post" role="form" class="form-horizontal col-lg-10">
+
+            {% for error in form.non_field_errors %}
+                <div class="alert alert-danger">{{ error }}</div>
+            {% endfor %}
+
+            {% csrf_token %}
+            <div class="form-group {% if form.name.errors %}has-error{% endif %}">
+                {% if form.name.errors %}
+                    <label class="control-label" for="inputError">{{ form.name.errors.0 }}</label>
+                {% endif %}
+                {{ form.name }}
+            </div>
+            <div class="form-group {% if form.description.errors %}has-error{% endif %}">
+                {% if form.description.errors %}
+                    <label class="control-label" for="inputError">{{ form.description.errors.0 }}</label>
+                {% endif %}
+                {{ form.description }}
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Create</button>
+            </div>
+        </form>
+
+    </div>
+{% endblock %}
